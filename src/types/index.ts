@@ -1,4 +1,3 @@
-
 export interface Product {
   id: string;
   title: string;
@@ -6,6 +5,8 @@ export interface Product {
   price: number;
   imageUrl: string;
   category: string;
+  size?: string; // Optional size information for sheets
+  material?: string; // Optional material information
 }
 
 export interface CartItem {

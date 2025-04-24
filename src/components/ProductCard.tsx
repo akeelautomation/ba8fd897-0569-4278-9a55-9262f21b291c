@@ -5,6 +5,7 @@ import { Product } from "@/types";
 import { Button } from "@/components/ui/button";
 import { useCart } from "@/contexts/CartContext";
 import { ShoppingCart } from "lucide-react";
+import { Badge } from "@/components/ui/badge";
 
 interface ProductCardProps {
   product: Product;
@@ -35,6 +36,18 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
         <p className="text-muted-foreground mb-2 line-clamp-2">
           {product.description}
         </p>
+        <div className="flex flex-wrap gap-2 mb-3">
+          {product.size && (
+            <Badge variant="secondary">
+              المقاس: {product.size}
+            </Badge>
+          )}
+          {product.material && (
+            <Badge variant="secondary">
+              الخامة: {product.material}
+            </Badge>
+          )}
+        </div>
         <div className="flex justify-between items-center mt-4">
           <span className="text-lg font-bold text-primary">{formatPrice(product.price)}</span>
           <Button 
