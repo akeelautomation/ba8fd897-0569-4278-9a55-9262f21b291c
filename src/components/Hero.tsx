@@ -2,7 +2,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { Sheets } from "lucide-react";
+import { Sheet } from "lucide-react";
 
 const Hero = () => {
   return (
@@ -19,7 +19,7 @@ const Hero = () => {
             <div className="flex flex-wrap gap-4">
               <Link to="/products">
                 <Button size="lg" className="bg-brown hover:bg-brown-dark text-white">
-                  <Sheets className="ml-2 h-5 w-5" />
+                  <Sheet className="ml-2 h-5 w-5" />
                   تسوق الآن
                 </Button>
               </Link>
