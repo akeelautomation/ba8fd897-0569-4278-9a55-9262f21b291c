@@ -1,14 +1,16 @@
 
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { useCart } from "@/contexts/CartContext";
 import { Button } from "@/components/ui/button";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "@/hooks/use-toast";
+import { Loader2 } from "lucide-react";
 
 const OrderConfirmation = () => {
   const navigate = useNavigate();
   const { cart, customer, clearCart, getTotalPrice } = useCart();
+  const [isSubmitting, setIsSubmitting] = useState(false);
   
   const formatPrice = (price: number) => {
     return `${price.toLocaleString()} دج`;
@@ -22,6 +24,8 @@ const OrderConfirmation = () => {
   
   const handleConfirmOrder = async () => {
     if (!customer || cart.length === 0) return;
+    
+    setIsSubmitting(true);
     
     try {
       // Create order in database
@@ -37,7 +41,16 @@ const OrderConfirmation = () => {
         .select()
         .single();
         
-      if (orderError) throw orderError;
+      if (orderError) {
+        console.error("Order creation error:", orderError);
+        throw new Error("Failed to create order");
+      }
+      
+      if (!orderData || !orderData.id) {
+        throw new Error("No order data returned");
+      }
+      
+      console.log("Order created successfully:", orderData);
       
       // Insert order items
       const orderItems = cart.map(item => ({
@@ -52,7 +65,12 @@ const OrderConfirmation = () => {
         .from('order_items')
         .insert(orderItems);
         
-      if (itemsError) throw itemsError;
+      if (itemsError) {
+        console.error("Order items error:", itemsError);
+        throw new Error("Failed to add order items");
+      }
+      
+      console.log("Order items created successfully");
       
       // Clear the cart and redirect to success page
       clearCart();
@@ -64,6 +82,8 @@ const OrderConfirmation = () => {
         description: "لم نتمكن من إكمال طلبك، يرجى المحاولة مرة أخرى",
         variant: "destructive",
       });
+    } finally {
+      setIsSubmitting(false);
     }
   };
   
@@ -160,8 +180,19 @@ const OrderConfirmation = () => {
           <Button variant="outline">تعديل الطلب</Button>
         </Link>
         
-        <Button onClick={handleConfirmOrder}>
-          تأكيد وإنهاء الطلب
+        <Button 
+          onClick={handleConfirmOrder} 
+          disabled={isSubmitting}
+          className="min-w-[180px]"
+        >
+          {isSubmitting ? (
+            <>
+              <Loader2 className="ml-2 h-4 w-4 animate-spin" />
+              جاري المعالجة...
+            </>
+          ) : (
+            "تأكيد وإنهاء الطلب"
+          )}
         </Button>
       </div>
     </div>
