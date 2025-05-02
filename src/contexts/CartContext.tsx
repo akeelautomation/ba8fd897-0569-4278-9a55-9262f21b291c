@@ -13,7 +13,6 @@ interface CartContextType {
   getTotalPrice: () => number;
   customer: Customer | null;
   setCustomer: (customer: Customer) => void;
-  createOrder: () => Order | null;
 }
 
 const CartContext = createContext<CartContextType | undefined>(undefined);
@@ -84,26 +83,6 @@ export const CartProvider = ({ children }: CartProviderProps) => {
     return cart.reduce((total, item) => total + item.product.price * item.quantity, 0);
   };
 
-  const createOrder = (): Order | null => {
-    if (!customer || cart.length === 0) {
-      return null;
-    }
-
-    const newOrder: Order = {
-      id: `ORDER-${Date.now()}`,
-      customer,
-      items: [...cart],
-      total: getTotalPrice(),
-      date: new Date().toISOString(),
-    };
-
-    // In a real app, this would send the order to a backend
-    // For now, we'll just console.log it
-    console.log("Order created:", newOrder);
-    clearCart();
-    return newOrder;
-  };
-
   return (
     <CartContext.Provider
       value={{
@@ -116,7 +95,6 @@ export const CartProvider = ({ children }: CartProviderProps) => {
         getTotalPrice,
         customer,
         setCustomer,
-        createOrder,
       }}
     >
       {children}

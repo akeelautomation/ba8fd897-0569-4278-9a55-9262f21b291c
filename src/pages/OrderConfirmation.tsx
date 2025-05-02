@@ -3,11 +3,12 @@ import React, { useEffect } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { useCart } from "@/contexts/CartContext";
 import { Button } from "@/components/ui/button";
-import { CheckCircle } from "lucide-react";
+import { supabase } from "@/integrations/supabase/client";
+import { toast } from "@/hooks/use-toast";
 
 const OrderConfirmation = () => {
   const navigate = useNavigate();
-  const { cart, customer, createOrder, getTotalPrice } = useCart();
+  const { cart, customer, clearCart, getTotalPrice } = useCart();
   
   const formatPrice = (price: number) => {
     return `${price.toLocaleString()} دج`;
@@ -19,10 +20,50 @@ const OrderConfirmation = () => {
     }
   }, [customer, cart, navigate]);
   
-  const handleConfirmOrder = () => {
-    const order = createOrder();
-    if (order) {
+  const handleConfirmOrder = async () => {
+    if (!customer || cart.length === 0) return;
+    
+    try {
+      // Create order in database
+      const { data: orderData, error: orderError } = await supabase
+        .from('orders')
+        .insert({
+          customer_name: customer.name,
+          customer_phone: customer.phone,
+          customer_wilaya: customer.wilaya,
+          customer_address: customer.address,
+          total_price: getTotalPrice()
+        })
+        .select()
+        .single();
+        
+      if (orderError) throw orderError;
+      
+      // Insert order items
+      const orderItems = cart.map(item => ({
+        order_id: orderData.id,
+        product_id: item.product.id,
+        product_title: item.product.title,
+        product_price: item.product.price,
+        quantity: item.quantity
+      }));
+      
+      const { error: itemsError } = await supabase
+        .from('order_items')
+        .insert(orderItems);
+        
+      if (itemsError) throw itemsError;
+      
+      // Clear the cart and redirect to success page
+      clearCart();
       navigate("/order-success");
+    } catch (error) {
+      console.error("Error creating order:", error);
+      toast({
+        title: "حدث خطأ",
+        description: "لم نتمكن من إكمال طلبك، يرجى المحاولة مرة أخرى",
+        variant: "destructive",
+      });
     }
   };
   
