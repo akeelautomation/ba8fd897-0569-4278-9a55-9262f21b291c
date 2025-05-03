@@ -13,8 +13,6 @@ const OrderConfirmation = () => {
   const { cart, customer, clearCart, getTotalPrice } = useCart();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState<string | null>(null);
-  const [retryCount, setRetryCount] = useState(0);
-  const MAX_RETRIES = 2;
   
   const formatPrice = (price: number) => {
     return `${price.toLocaleString()} دج`;
@@ -108,19 +106,6 @@ const OrderConfirmation = () => {
       navigate("/order-success");
     } catch (error: any) {
       console.error("Order submission failed:", error);
-      
-      if (retryCount < MAX_RETRIES) {
-        // Retry logic for temporary failures
-        setRetryCount(prev => prev + 1);
-        console.log(`Retrying order submission (attempt ${retryCount + 1} of ${MAX_RETRIES})...`);
-        
-        // Add a slight delay before retrying
-        setTimeout(() => {
-          handleConfirmOrder();
-        }, 1000);
-        return;
-      }
-      
       setSubmitError(error.message || "حدث خطأ غير معروف");
       toast({
         title: "حدث خطأ",
