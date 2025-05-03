@@ -5,12 +5,14 @@ import { useCart } from "@/contexts/CartContext";
 import { Button } from "@/components/ui/button";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "@/hooks/use-toast";
-import { Loader2 } from "lucide-react";
+import { Loader2, AlertTriangle } from "lucide-react";
+import { Alert, AlertTitle, AlertDescription } from "@/components/ui/alert";
 
 const OrderConfirmation = () => {
   const navigate = useNavigate();
   const { cart, customer, clearCart, getTotalPrice } = useCart();
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
   
   const formatPrice = (price: number) => {
     return `${price.toLocaleString()} دج`;
@@ -26,78 +28,84 @@ const OrderConfirmation = () => {
     if (!customer || cart.length === 0) return;
     
     setIsSubmitting(true);
+    setSubmitError(null);
     
     try {
       console.log("Starting order creation process...");
       console.log("Customer data:", customer);
       console.log("Cart items:", cart.length);
       
-      // Create the order items array first
+      // First, create an order object with all needed data
+      const orderData = {
+        customer_name: customer.name,
+        customer_phone: customer.phone,
+        customer_wilaya: customer.wilaya,
+        customer_address: customer.address,
+        total_price: getTotalPrice()
+      };
+      
+      console.log("Submitting order with data:", orderData);
+      
+      // Try to insert the order data
+      const { data: createdOrder, error: orderError } = await supabase
+        .from('orders')
+        .insert(orderData)
+        .select()
+        .single();
+      
+      // Handle order creation error
+      if (orderError) {
+        console.error("Order creation error:", orderError);
+        throw new Error(`Failed to create order: ${orderError.message}`);
+      }
+      
+      if (!createdOrder || !createdOrder.id) {
+        throw new Error("No order data returned");
+      }
+      
+      console.log("Order created successfully with ID:", createdOrder.id);
+      
+      // Prepare order items with the order ID
       const orderItems = cart.map(item => ({
+        order_id: createdOrder.id,
         product_id: item.product.id,
         product_title: item.product.title,
         product_price: item.product.price,
         quantity: item.quantity
       }));
       
-      // Create order in database with a single transaction
-      const { data: orderData, error: orderError } = await supabase
-        .from('orders')
-        .insert({
-          customer_name: customer.name,
-          customer_phone: customer.phone,
-          customer_wilaya: customer.wilaya,
-          customer_address: customer.address,
-          total_price: getTotalPrice()
-        })
-        .select()
-        .single();
-      
-      if (orderError) {
-        console.error("Order creation error:", orderError);
-        throw new Error(`Failed to create order: ${orderError.message}`);
-      }
-      
-      if (!orderData || !orderData.id) {
-        throw new Error("No order data returned");
-      }
-      
-      console.log("Order created successfully:", orderData);
-      
-      // Add the order_id to each item
-      const orderItemsWithId = orderItems.map(item => ({
-        ...item,
-        order_id: orderData.id
-      }));
+      console.log("Inserting order items:", orderItems.length);
       
       // Insert order items
       const { error: itemsError } = await supabase
         .from('order_items')
-        .insert(orderItemsWithId);
+        .insert(orderItems);
       
       if (itemsError) {
-        console.error("Order items error:", itemsError);
+        console.error("Order items insertion failed:", itemsError);
         
-        // If order items insertion fails, let's try to delete the order to maintain consistency
-        const { error: deleteError } = await supabase
+        // Attempt to clean up the orphaned order
+        console.log("Attempting to clean up orphaned order:", createdOrder.id);
+        await supabase
           .from('orders')
           .delete()
-          .eq('id', orderData.id);
-        
-        if (deleteError) {
-          console.error("Failed to clean up order after items insertion error:", deleteError);
-        }
-        
+          .eq('id', createdOrder.id);
+          
         throw new Error(`Failed to add order items: ${itemsError.message}`);
       }
       
-      console.log("Order items created successfully");
+      console.log("Order process completed successfully");
       
       // Clear the cart and redirect to success page
       clearCart();
+      toast({
+        title: "تم تأكيد الطلب",
+        description: "تم تأكيد طلبك بنجاح، سيتم التواصل معك قريباً",
+      });
       navigate("/order-success");
-    } catch (error) {
-      console.error("Error creating order:", error);
+    } catch (error: any) {
+      console.error("Order submission failed:", error);
+      setSubmitError(error.message || "حدث خطأ غير معروف");
       toast({
         title: "حدث خطأ",
         description: "لم نتمكن من إكمال طلبك، يرجى المحاولة مرة أخرى",
@@ -115,6 +123,17 @@ const OrderConfirmation = () => {
   return (
     <div className="container mx-auto px-4 py-12">
       <h1 className="text-3xl font-bold mb-8">مراجعة الطلب</h1>
+      
+      {submitError && (
+        <Alert variant="destructive" className="mb-6">
+          <AlertTriangle className="h-4 w-4" />
+          <AlertTitle>فشل تأكيد الطلب</AlertTitle>
+          <AlertDescription>
+            حدث خطأ أثناء محاولة تأكيد طلبك. يرجى المحاولة مرة أخرى لاحقاً.
+            {/* {submitError} */}
+          </AlertDescription>
+        </Alert>
+      )}
       
       <div className="bg-white rounded-lg shadow-md p-6 mb-8">
         <h2 className="text-xl font-bold mb-6">معلومات التوصيل</h2>
