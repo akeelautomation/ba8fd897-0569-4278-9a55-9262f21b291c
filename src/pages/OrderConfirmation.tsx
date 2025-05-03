@@ -28,7 +28,19 @@ const OrderConfirmation = () => {
     setIsSubmitting(true);
     
     try {
-      // Create order in database
+      console.log("Starting order creation process...");
+      console.log("Customer data:", customer);
+      console.log("Cart items:", cart.length);
+      
+      // Create the order items array first
+      const orderItems = cart.map(item => ({
+        product_id: item.product.id,
+        product_title: item.product.title,
+        product_price: item.product.price,
+        quantity: item.quantity
+      }));
+      
+      // Create order in database with a single transaction
       const { data: orderData, error: orderError } = await supabase
         .from('orders')
         .insert({
@@ -40,10 +52,10 @@ const OrderConfirmation = () => {
         })
         .select()
         .single();
-        
+      
       if (orderError) {
         console.error("Order creation error:", orderError);
-        throw new Error("Failed to create order");
+        throw new Error(`Failed to create order: ${orderError.message}`);
       }
       
       if (!orderData || !orderData.id) {
@@ -52,22 +64,31 @@ const OrderConfirmation = () => {
       
       console.log("Order created successfully:", orderData);
       
-      // Insert order items
-      const orderItems = cart.map(item => ({
-        order_id: orderData.id,
-        product_id: item.product.id,
-        product_title: item.product.title,
-        product_price: item.product.price,
-        quantity: item.quantity
+      // Add the order_id to each item
+      const orderItemsWithId = orderItems.map(item => ({
+        ...item,
+        order_id: orderData.id
       }));
       
+      // Insert order items
       const { error: itemsError } = await supabase
         .from('order_items')
-        .insert(orderItems);
-        
+        .insert(orderItemsWithId);
+      
       if (itemsError) {
         console.error("Order items error:", itemsError);
-        throw new Error("Failed to add order items");
+        
+        // If order items insertion fails, let's try to delete the order to maintain consistency
+        const { error: deleteError } = await supabase
+          .from('orders')
+          .delete()
+          .eq('id', orderData.id);
+        
+        if (deleteError) {
+          console.error("Failed to clean up order after items insertion error:", deleteError);
+        }
+        
+        throw new Error(`Failed to add order items: ${itemsError.message}`);
       }
       
       console.log("Order items created successfully");
