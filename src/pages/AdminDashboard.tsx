@@ -33,6 +33,7 @@ interface OrderItem {
   product_title: string;
   product_price: number;
   quantity: number;
+  customer_name?: string; // Add customer name to order items for display purposes
 }
 
 const formatDate = (dateString: string) => {
@@ -94,7 +95,7 @@ const AdminDashboard = () => {
   }, []);
 
   // Fetch order items for an order
-  const fetchOrderItems = async (orderId: string) => {
+  const fetchOrderItems = async (orderId: string, customerName: string) => {
     try {
       setLoadingItems(true);
       const { data, error } = await supabase
@@ -103,7 +104,14 @@ const AdminDashboard = () => {
         .eq('order_id', orderId);
       
       if (error) throw error;
-      setOrderItems(data || []);
+      
+      // Add customer name to each order item for display purposes
+      const itemsWithCustomerName = (data || []).map(item => ({
+        ...item,
+        customer_name: customerName
+      }));
+      
+      setOrderItems(itemsWithCustomerName);
     } catch (error) {
       console.error('Error fetching order items:', error);
       toast({
@@ -145,18 +153,18 @@ const AdminDashboard = () => {
     }
   };
 
-  const toggleOrderDetails = (orderId: string) => {
+  const toggleOrderDetails = (orderId: string, customerName: string) => {
     if (expandedOrder === orderId) {
       setExpandedOrder(null);
     } else {
       setExpandedOrder(orderId);
-      fetchOrderItems(orderId);
+      fetchOrderItems(orderId, customerName);
     }
   };
 
   const handleViewOrderDetails = (order: Order) => {
     setSelectedOrder(order);
-    fetchOrderItems(order.id);
+    fetchOrderItems(order.id, order.customer_name);
   };
 
   return (
@@ -198,7 +206,7 @@ const AdminDashboard = () => {
                         <Button
                           variant="ghost"
                           size="sm"
-                          onClick={() => toggleOrderDetails(order.id)}
+                          onClick={() => toggleOrderDetails(order.id, order.customer_name)}
                         >
                           <ChevronDown
                             className={`h-4 w-4 transition-transform ${
@@ -360,6 +368,7 @@ const AdminDashboard = () => {
                               <Table>
                                 <TableHeader>
                                   <TableRow>
+                                    <TableHead>العميل</TableHead>
                                     <TableHead>المنتج</TableHead>
                                     <TableHead>السعر</TableHead>
                                     <TableHead>الكمية</TableHead>
@@ -369,6 +378,7 @@ const AdminDashboard = () => {
                                 <TableBody>
                                   {orderItems.map((item) => (
                                     <TableRow key={item.id}>
+                                      <TableCell>{item.customer_name}</TableCell>
                                       <TableCell>{item.product_title}</TableCell>
                                       <TableCell>{formatPrice(item.product_price)}</TableCell>
                                       <TableCell>{item.quantity}</TableCell>
