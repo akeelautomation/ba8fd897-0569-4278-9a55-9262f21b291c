@@ -1,3 +1,4 @@
+
 export interface Product {
   id: string;
   title: string;
@@ -27,4 +28,7 @@ export interface Order {
   items: CartItem[];
   total: number;
   date: string;
+  product_title?: string; // Added new fields to match the database
+  product_price?: number;
+  quantity?: number;
 }

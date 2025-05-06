@@ -24,6 +24,9 @@ interface Order {
   total_price: number;
   status: string;
   created_at: string;
+  product_title: string | null; // New fields added to orders table
+  product_price: number | null;
+  quantity: number | null;
 }
 
 interface OrderItem {
@@ -190,8 +193,9 @@ const AdminDashboard = () => {
                   <TableHead className="w-12"></TableHead>
                   <TableHead>رقم الطلب</TableHead>
                   <TableHead>العميل</TableHead>
-                  <TableHead>رقم الهاتف</TableHead>
-                  <TableHead>الولاية</TableHead>
+                  <TableHead>المنتج</TableHead>
+                  <TableHead>السعر</TableHead>
+                  <TableHead>الكمية</TableHead>
                   <TableHead>المجموع</TableHead>
                   <TableHead>الحالة</TableHead>
                   <TableHead>التاريخ</TableHead>
@@ -219,8 +223,9 @@ const AdminDashboard = () => {
                         {order.id.substring(0, 8)}
                       </TableCell>
                       <TableCell>{order.customer_name}</TableCell>
-                      <TableCell>{order.customer_phone}</TableCell>
-                      <TableCell>{order.customer_wilaya}</TableCell>
+                      <TableCell>{order.product_title || 'متعدد المنتجات'}</TableCell>
+                      <TableCell>{order.product_price ? formatPrice(order.product_price) : '-'}</TableCell>
+                      <TableCell>{order.quantity || '-'}</TableCell>
                       <TableCell>{formatPrice(order.total_price)}</TableCell>
                       <TableCell>
                         <Badge

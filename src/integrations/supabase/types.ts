@@ -55,6 +55,9 @@ export type Database = {
           customer_phone: string
           customer_wilaya: string
           id: string
+          product_price: number | null
+          product_title: string | null
+          quantity: number | null
           status: string
           total_price: number
         }
@@ -65,6 +68,9 @@ export type Database = {
           customer_phone: string
           customer_wilaya: string
           id?: string
+          product_price?: number | null
+          product_title?: string | null
+          quantity?: number | null
           status?: string
           total_price: number
         }
@@ -75,6 +81,9 @@ export type Database = {
           customer_phone?: string
           customer_wilaya?: string
           id?: string
+          product_price?: number | null
+          product_title?: string | null
+          quantity?: number | null
           status?: string
           total_price?: number
         }

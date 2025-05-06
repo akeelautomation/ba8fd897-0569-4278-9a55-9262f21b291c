@@ -35,14 +35,22 @@ const OrderConfirmation = () => {
       console.log("Customer data:", customer);
       console.log("Cart items:", cart.length);
       
-      // First, create an order object with all needed data
+      // For orders with multiple items, we'll store first product info in the orders table
+      // and all products in order_items for detailed view
+      const firstItem = cart[0];
+      
+      // First, create an order object with all needed data including first product info
       const orderData = {
         customer_name: customer.name,
         customer_phone: customer.phone,
         customer_wilaya: customer.wilaya,
         customer_address: customer.address,
         total_price: getTotalPrice(),
-        status: "pending"
+        status: "pending",
+        // Add the first product information to the order
+        product_title: firstItem.product.title,
+        product_price: firstItem.product.price,
+        quantity: firstItem.quantity
       };
       
       console.log("Submitting order with data:", orderData);
