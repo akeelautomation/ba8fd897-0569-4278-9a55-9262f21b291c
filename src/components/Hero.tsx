@@ -32,7 +32,7 @@ const Hero = () => {
           </div>
           <div className="md:w-1/2">
             <img 
-              src="https://images.unsplash.com/photo-1649972904349-6e44c42644a7"
+              src="/lovable-uploads/4cbec7f4-bc5c-4103-862d-67b463624187.png"
               alt="مفروشات منزلية راقية" 
               className="rounded-lg shadow-xl"
             />
