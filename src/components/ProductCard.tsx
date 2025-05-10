@@ -1,10 +1,10 @@
 
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Product } from "@/types";
 import { Button } from "@/components/ui/button";
 import { useCart } from "@/contexts/CartContext";
-import { ShoppingCart } from "lucide-react";
+import { ShoppingBag } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 
 interface ProductCardProps {
@@ -13,9 +13,15 @@ interface ProductCardProps {
 
 const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
   const { addToCart } = useCart();
+  const navigate = useNavigate();
   
   const formatPrice = (price: number) => {
     return `${price.toLocaleString()} دج`;
+  };
+  
+  const handleOrderNow = () => {
+    addToCart(product);
+    navigate("/checkout");
   };
   
   return (
@@ -52,10 +58,10 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
           <span className="text-lg font-bold text-primary">{formatPrice(product.price)}</span>
           <Button 
             size="sm" 
-            onClick={() => addToCart(product)}
+            onClick={handleOrderNow}
             className="flex items-center gap-2"
           >
-            <ShoppingCart className="h-4 w-4" /> إضافة للسلة
+            <ShoppingBag className="h-4 w-4" /> اطلب الآن
           </Button>
         </div>
       </div>

@@ -9,10 +9,14 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { wilayas } from "@/data/wilayas";
 import { z } from "zod";
 import { Customer } from "@/types";
+import { supabase } from "@/integrations/supabase/client";
+import { toast } from "@/hooks/use-toast";
+import { Loader2 } from "lucide-react";
 
 const CheckoutPage = () => {
   const navigate = useNavigate();
-  const { cart, getTotalPrice, setCustomer } = useCart();
+  const { cart, getTotalPrice, setCustomer, clearCart } = useCart();
+  const [isSubmitting, setIsSubmitting] = useState(false);
   
   const [formData, setFormData] = useState<Customer>({
     name: "",
@@ -84,12 +88,103 @@ const CheckoutPage = () => {
     }
   };
   
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
     if (validateForm()) {
+      setIsSubmitting(true);
       setCustomer(formData);
-      navigate("/order-confirmation");
+      
+      try {
+        console.log("Starting order creation process...");
+        
+        // For orders with multiple items, we'll store first product info in the orders table
+        const firstItem = cart[0];
+        
+        // Create an order object with all needed data including first product info
+        const orderData = {
+          customer_name: formData.name,
+          customer_phone: formData.phone,
+          customer_wilaya: formData.wilaya,
+          customer_address: formData.address,
+          total_price: getTotalPrice(),
+          status: "pending",
+          // Add the first product information to the order
+          product_title: firstItem.product.title,
+          product_price: firstItem.product.price,
+          quantity: firstItem.quantity
+        };
+        
+        console.log("Submitting order with data:", orderData);
+        
+        // Insert the order data
+        const { data: createdOrder, error: orderError } = await supabase
+          .from('orders')
+          .insert(orderData)
+          .select()
+          .single();
+        
+        // Handle order creation error
+        if (orderError) {
+          console.error("Order creation error:", orderError);
+          throw new Error(`Failed to create order: ${orderError.message}`);
+        }
+        
+        if (!createdOrder || !createdOrder.id) {
+          throw new Error("No order data returned");
+        }
+        
+        console.log("Order created successfully with ID:", createdOrder.id);
+        
+        // Prepare order items with the order ID
+        const orderItems = cart.map(item => ({
+          order_id: createdOrder.id,
+          product_id: item.product.id,
+          product_title: item.product.title,
+          product_price: item.product.price,
+          quantity: item.quantity
+        }));
+        
+        console.log("Inserting order items:", orderItems.length);
+        
+        // Insert order items
+        const { error: itemsError } = await supabase
+          .from('order_items')
+          .insert(orderItems);
+        
+        if (itemsError) {
+          console.error("Order items insertion failed:", itemsError);
+          
+          // Attempt to clean up the orphaned order
+          await supabase
+            .from('orders')
+            .delete()
+            .eq('id', createdOrder.id);
+            
+          throw new Error(`Failed to add order items: ${itemsError.message}`);
+        }
+        
+        console.log("Order process completed successfully");
+        
+        // Clear cart and show success toast
+        clearCart();
+        toast({
+          title: "تم تأكيد الطلب",
+          description: "تم تأكيد طلبك بنجاح، سيتم التواصل معك قريباً",
+        });
+        
+        // Navigate directly to success page
+        navigate("/order-success");
+      } catch (error: any) {
+        console.error("Order submission failed:", error);
+        toast({
+          title: "حدث خطأ",
+          description: "لم نتمكن من إكمال طلبك، يرجى المحاولة مرة أخرى",
+          variant: "destructive",
+        });
+      } finally {
+        setIsSubmitting(false);
+      }
     }
   };
   
@@ -163,8 +258,19 @@ const CheckoutPage = () => {
                   </div>
                 </div>
                 
-                <Button type="submit" className="w-full">
-                  تأكيد الطلب
+                <Button 
+                  type="submit" 
+                  className="w-full"
+                  disabled={isSubmitting}
+                >
+                  {isSubmitting ? (
+                    <>
+                      <Loader2 className="ml-2 h-4 w-4 animate-spin" />
+                      جاري المعالجة...
+                    </>
+                  ) : (
+                    "تأكيد الطلب"
+                  )}
                 </Button>
               </div>
             </form>

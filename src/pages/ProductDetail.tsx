@@ -4,7 +4,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import { getProductById } from "@/data/products";
 import { Button } from "@/components/ui/button";
 import { useCart } from "@/contexts/CartContext";
-import { ShoppingCart } from "lucide-react";
+import { ShoppingBag } from "lucide-react";
 
 const ProductDetail = () => {
   const { id } = useParams<{ id: string }>();
@@ -24,6 +24,11 @@ const ProductDetail = () => {
   
   const formatPrice = (price: number) => {
     return `${price.toLocaleString()} دج`;
+  };
+  
+  const handleOrderNow = () => {
+    addToCart(product);
+    navigate("/checkout");
   };
   
   return (
@@ -55,10 +60,10 @@ const ProductDetail = () => {
           
           <Button
             size="lg"
-            onClick={() => addToCart(product)}
+            onClick={handleOrderNow}
             className="w-full md:w-auto flex items-center justify-center gap-2"
           >
-            <ShoppingCart className="h-5 w-5" /> إضافة إلى السلة
+            <ShoppingBag className="h-5 w-5" /> اطلب الآن
           </Button>
         </div>
       </div>
