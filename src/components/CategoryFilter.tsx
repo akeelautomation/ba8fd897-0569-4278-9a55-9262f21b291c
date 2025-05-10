@@ -17,7 +17,7 @@ const CategoryFilter: React.FC<CategoryFilterProps> = ({ activeCategory, onSelec
           variant={activeCategory === category ? "default" : "outline"}
           onClick={() => onSelectCategory(category)}
           className={`${
-            activeCategory === category ? "bg-brown text-white" : "text-brown"
+            activeCategory === category ? "bg-pastel-primary text-white" : "text-pastel-dark border-pastel-primary"
           }`}
         >
           {category}

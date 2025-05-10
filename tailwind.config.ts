@@ -63,18 +63,22 @@ export default {
 					border: 'hsl(var(--sidebar-border))',
 					ring: 'hsl(var(--sidebar-ring))'
 				},
-				// New warm & cozy colors
-				warm: {
-					cream: '#F5F1E8',      // Warm cream background
-					sand: '#E8DCC9',       // Light sand background
-					terracotta: '#CB6D51', // Primary terracotta/rust
-					rust: '#9E4638',       // Darker rust tone
-					olive: '#6B7D5D',      // Olive green
-					sage: '#8A9A7B',       // Lighter sage green
-					orange: '#E98A53',     // Burnt orange
-					gold: '#D4AC5F',       // Soft gold
-					brown: '#6D4C41',      // Warm brown
-					darkgray: '#4A4A4A',   // Dark gray
+				// New Scandinavian minimal colors
+				pastel: {
+					white: '#FFFFFF',        // White background
+					beige: '#F5F5F0',        // Light beige background
+					gray: '#D8D8D8',         // Soft gray
+					taupe: '#BCB6A6',        // Taupe
+					sage: '#C2C5AA',         // Sage green
+					rose: '#E7D8D8',         // Dusty rose
+					blue: '#A5B1CB',         // Muted blue
+					charcoal: '#403E43',     // Charcoal gray
+					light: '#F1F0FB',        // Light background
+					dark: '#403E43',         // Dark text color
+					primary: '#BCB6A6',      // Primary color - taupe
+					secondary: '#F1F0FB',    // Secondary color - light
+					accent: '#C2C5AA',       // Accent - sage
+					medium: '#E9E9E9',       // Medium gray for borders
 				},
 			},
 			fontFamily: {

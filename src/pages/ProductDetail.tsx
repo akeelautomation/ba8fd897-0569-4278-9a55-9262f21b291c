@@ -34,7 +34,7 @@ const ProductDetail = () => {
   return (
     <div className="container mx-auto px-4 py-12">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
-        <div className="bg-white rounded-lg shadow-md overflow-hidden border border-pastel-light">
+        <div className="bg-white rounded-lg shadow-md overflow-hidden border border-pastel-medium">
           <img 
             src={product.imageUrl} 
             alt={product.title} 
@@ -61,7 +61,7 @@ const ProductDetail = () => {
           <Button
             size="lg"
             onClick={handleOrderNow}
-            className="w-full md:w-auto flex items-center justify-center gap-2 bg-pastel-primary hover:bg-pastel-dark text-foreground hover:text-white"
+            className="w-full md:w-auto flex items-center justify-center gap-2 bg-pastel-primary hover:bg-pastel-dark text-white"
           >
             <ShoppingBag className="h-5 w-5" /> اطلب الآن
           </Button>

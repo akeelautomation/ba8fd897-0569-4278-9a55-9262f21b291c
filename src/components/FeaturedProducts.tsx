@@ -10,7 +10,7 @@ const FeaturedProducts = () => {
   const featuredProducts = products.slice(0, 4);
   
   return (
-    <section className="py-16 bg-sand-light">
+    <section className="py-16 bg-pastel-light">
       <div className="container mx-auto px-4">
         <div className="text-center mb-12">
           <h2 className="text-3xl font-bold mb-4">منتجاتنا المميزة</h2>
@@ -27,7 +27,7 @@ const FeaturedProducts = () => {
         
         <div className="text-center mt-12">
           <Link to="/products">
-            <Button size="lg" variant="outline">
+            <Button size="lg" variant="outline" className="border-pastel-primary text-pastel-dark hover:bg-pastel-primary hover:text-white">
               عرض جميع المنتجات
             </Button>
           </Link>
