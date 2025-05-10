@@ -63,19 +63,13 @@ export default {
 					border: 'hsl(var(--sidebar-border))',
 					ring: 'hsl(var(--sidebar-ring))'
 				},
-				gold: {
-					DEFAULT: '#D4AF37',
-					light: '#F5E5AC',
-				},
-				sand: {
-					DEFAULT: '#E2D2B2',
-					light: '#F5F0E6',
-					dark: '#C2B299',
-				},
-				brown: {
-					DEFAULT: '#8B4513',
-					light: '#A67B5B',
-					dark: '#5E2F0D',
+				pastel: {
+					primary: '#E5DEFF', // Soft purple
+					secondary: '#FEF7CD', // Soft yellow
+					accent: '#FFDEE2', // Soft pink
+					dark: '#9A86CB', // Darker purple
+					medium: '#BDB2E0', // Medium purple
+					light: '#F1F0FB', // Very light purple/lavender
 				},
 			},
 			fontFamily: {

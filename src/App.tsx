@@ -31,7 +31,7 @@ const App = () => (
         <Toaster />
         <Sonner />
         <BrowserRouter>
-          <div className="min-h-screen flex flex-col bg-sand-light">
+          <div className="min-h-screen flex flex-col bg-pastel-light">
             <Header />
             <main className="flex-grow">
               <Routes>

@@ -25,7 +25,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
   };
   
   return (
-    <div className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300">
+    <div className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300 border border-pastel-light">
       <Link to={`/product/${product.id}`}>
         <img 
           src={product.imageUrl} 
@@ -35,7 +35,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
       </Link>
       <div className="p-4">
         <Link to={`/product/${product.id}`}>
-          <h3 className="text-xl font-semibold mb-2 hover:text-primary transition-colors">
+          <h3 className="text-xl font-semibold mb-2 hover:text-pastel-dark transition-colors">
             {product.title}
           </h3>
         </Link>
@@ -44,22 +44,22 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
         </p>
         <div className="flex flex-wrap gap-2 mb-3">
           {product.size && (
-            <Badge variant="secondary">
+            <Badge variant="outline" className="bg-pastel-light text-foreground">
               المقاس: {product.size}
             </Badge>
           )}
           {product.material && (
-            <Badge variant="secondary">
+            <Badge variant="outline" className="bg-pastel-light text-foreground">
               الخامة: {product.material}
             </Badge>
           )}
         </div>
         <div className="flex justify-between items-center mt-4">
-          <span className="text-lg font-bold text-primary">{formatPrice(product.price)}</span>
+          <span className="text-lg font-bold text-pastel-dark">{formatPrice(product.price)}</span>
           <Button 
             size="sm" 
             onClick={handleOrderNow}
-            className="flex items-center gap-2"
+            className="flex items-center gap-2 bg-pastel-primary hover:bg-pastel-dark text-foreground hover:text-white"
           >
             <ShoppingBag className="h-4 w-4" /> اطلب الآن
           </Button>
