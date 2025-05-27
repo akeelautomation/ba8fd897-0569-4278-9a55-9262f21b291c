@@ -109,13 +109,68 @@ export const products: Product[] = [
     imageUrl: "/lovable-uploads/895cac94-468a-481d-9f42-d9fe509dd050.png",
     category: "زَرابِي",
     material: "قطن وصوف"
+  },
+  {
+    id: "13",
+    title: "طقم أغطية وسائد بنقوش أوراق صفراء",
+    description: "طقم أنيق من أغطية الوسائد بتصميم أوراق صفراء وبنية جميلة على خلفية بيضاء. يشمل عدة قطع متناسقة لغرفة نوم راقية.",
+    price: 3500,
+    imageUrl: "/lovable-uploads/6885cc7d-6dd9-4a65-8032-f9ae6df29a4d.png",
+    category: "أغطية وسائد",
+    material: "قطن مطبوع"
+  },
+  {
+    id: "14",
+    title: "طقم أغطية وسائد بزهور بيضاء",
+    description: "طقم فاخر من أغطية الوسائد بتصميم زهور بيضاء أنيقة على خلفية بيج. مثالي لإضافة لمسة رومانسية للغرفة.",
+    price: 3800,
+    imageUrl: "/lovable-uploads/091e4198-6999-414c-86e2-3642e45554b9.png",
+    category: "أغطية وسائد",
+    material: "قطن مطبوع"
+  },
+  {
+    id: "15",
+    title: "طقم أغطية وسائد بأوراق خضراء",
+    description: "طقم عصري من أغطية الوسائد بتصميم أوراق خضراء طبيعية على خلفية بيضاء. يضفي إحساساً بالانتعاش والطبيعة.",
+    price: 3600,
+    imageUrl: "/lovable-uploads/1d7f84b6-8354-4c6b-a06a-a5bb60650dc7.png",
+    category: "أغطية وسائد",
+    material: "قطن مطبوع"
+  },
+  {
+    id: "16",
+    title: "طقم أغطية وسائد بخطوط ذهبية",
+    description: "طقم أنيق من أغطية الوسائد بتصميم خطوط ذهبية وبنية متداخلة. يجمع بين الأناقة والعصرية لديكور راقي.",
+    price: 4000,
+    imageUrl: "/lovable-uploads/4d380d78-9c12-4283-8214-e948d174ec7f.png",
+    category: "أغطية وسائد",
+    material: "قطن مطبوع"
+  },
+  {
+    id: "17",
+    title: "طقم أغطية وسائد بنقوش خضراء مموجة",
+    description: "طقم جميل من أغطية الوسائد بتصميم نقوش خضراء مموجة عصرية. مثالي للديكورات المودرن والمعاصرة.",
+    price: 3700,
+    imageUrl: "/lovable-uploads/3990d9f2-12e3-4258-90eb-fe4d25ac4fd4.png",
+    category: "أغطية وسائد",
+    material: "قطن مطبوع"
+  },
+  {
+    id: "18",
+    title: "طقم أغطية وسائد بأوراق زرقاء",
+    description: "طقم رائع من أغطية الوسائد بتصميم أوراق زرقاء هادئة على خلفية بيضاء. يضفي جواً من الهدوء والراحة على الغرفة.",
+    price: 3600,
+    imageUrl: "/lovable-uploads/d21b1541-8e34-4dd7-a209-a407b27e7aca.png",
+    category: "أغطية وسائد",
+    material: "قطن مطبوع"
   }
 ];
 
 export const categories = [
   "الكل",
   "حجاب نافذة/ريدو",
-  "زَرابِي"
+  "زَرابِي",
+  "أغطية وسائد"
 ];
 
 export function getProductsByCategory(category: string): Product[] {
