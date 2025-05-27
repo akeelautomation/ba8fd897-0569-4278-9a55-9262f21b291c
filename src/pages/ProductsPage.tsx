@@ -1,11 +1,21 @@
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useSearchParams } from "react-router-dom";
 import ProductCard from "@/components/ProductCard";
 import CategoryFilter from "@/components/CategoryFilter";
 import { getProductsByCategory, categories } from "@/data/products";
 
 const ProductsPage = () => {
-  const [activeCategory, setActiveCategory] = useState(categories[0]);
+  const [searchParams] = useSearchParams();
+  const categoryFromUrl = searchParams.get('category');
+  const [activeCategory, setActiveCategory] = useState(categoryFromUrl || categories[0]);
+  
+  useEffect(() => {
+    if (categoryFromUrl) {
+      setActiveCategory(categoryFromUrl);
+    }
+  }, [categoryFromUrl]);
+  
   const filteredProducts = getProductsByCategory(activeCategory);
   
   return (

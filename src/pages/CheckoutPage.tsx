@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useCart } from "@/contexts/CartContext";
@@ -97,6 +96,8 @@ const CheckoutPage = () => {
       
       try {
         console.log("Starting order creation process...");
+        console.log("Cart items:", cart);
+        console.log("Customer data:", formData);
         
         // For orders with multiple items, we'll store first product info in the orders table
         const firstItem = cart[0];
@@ -145,7 +146,7 @@ const CheckoutPage = () => {
           quantity: item.quantity
         }));
         
-        console.log("Inserting order items:", orderItems.length);
+        console.log("Inserting order items:", orderItems);
         
         // Insert order items
         const { error: itemsError } = await supabase
@@ -260,12 +261,12 @@ const CheckoutPage = () => {
                 
                 <Button 
                   type="submit" 
-                  className="w-full"
+                  className="w-full bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-bold py-3 px-6 text-lg shadow-lg hover:shadow-xl transition-all duration-200 transform hover:scale-105"
                   disabled={isSubmitting}
                 >
                   {isSubmitting ? (
                     <>
-                      <Loader2 className="ml-2 h-4 w-4 animate-spin" />
+                      <Loader2 className="ml-2 h-5 w-5 animate-spin" />
                       جاري المعالجة...
                     </>
                   ) : (
