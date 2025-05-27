@@ -1,63 +1,57 @@
+
 import { Product } from "../types";
 
 export const products: Product[] = [
   {
     id: "1",
-    title: "طقم سرير قطني فاخر",
-    description: "طقم سرير مصنوع من القطن المصري الفاخر بنسبة 100٪. يتضمن غطاء لحاف وملاءة سرير و2 غطاء وسادة. متوفر بألوان متعددة.",
-    price: 8500,
-    imageUrl: "https://images.unsplash.com/photo-1649972904349-6e44c42644a7",
-    category: "أطقم سرير",
-    size: "200x180",
-    material: "قطن مصري"
+    title: "ستارة بيضاء مطرزة بأوراق وردية",
+    description: "ستارة جميلة من القماش الأبيض مزينة بتطريز أوراق وردية ناعمة. مثالية لإضافة لمسة أنثوية راقية لأي غرفة.",
+    price: 4500,
+    imageUrl: "/lovable-uploads/714e2004-5421-42eb-87c0-95d751b1a1af.png",
+    category: "حجاب نافذة/ريدو",
+    material: "قطن مطرز"
   },
   {
     id: "2",
-    title: "غطاء سرير مطرز",
-    description: "غطاء سرير مطرز بتصاميم عصرية. مصنوع من خامات عالية الجودة تدوم طويلاً.",
-    price: 6500,
-    imageUrl: "https://images.unsplash.com/photo-1721322800607-8c38375eef04",
-    category: "أغطية سرير",
-    size: "220x200",
-    material: "قطن"
+    title: "ستارة بيضاء بتطريز أوراق خضراء",
+    description: "ستارة أنيقة باللون الأبيض مع تطريز جميل بأوراق خضراء. تتميز بالحلقات المعدنية للتعليق السهل.",
+    price: 4200,
+    imageUrl: "/lovable-uploads/273bf218-4af0-4b6a-80c5-060f1d2566f8.png",
+    category: "حجاب نافذة/ريدو",
+    material: "قطن مطرز"
   },
   {
     id: "3",
-    title: "ملاءة سرير ساتان",
-    description: "ملاءة سرير من الساتان الفاخر. ناعمة الملمس ومريحة للنوم.",
-    price: 4500,
-    imageUrl: "https://images.unsplash.com/photo-1649972904349-6e44c42644a7",
-    category: "ملاءات",
-    size: "200x180",
-    material: "ساتان"
+    title: "ستارة بيضاء بنقوش هندسية",
+    description: "ستارة فاخرة باللون الأبيض مزينة بنقوش هندسية راقية ومربعات صغيرة. تضفي طابعاً عصرياً على المكان.",
+    price: 5000,
+    imageUrl: "/lovable-uploads/bf4b51c6-7b17-4d10-9379-87b9e40ff9e5.png",
+    category: "حجاب نافذة/ريدو",
+    material: "قطن منقوش"
   },
   {
     id: "4",
-    title: "أغطية وسائد مزخرفة",
-    description: "مجموعة من 4 أغطية وسائد مزخرفة بتصاميم عصرية. مثالية لتزيين غرفة النوم.",
-    price: 3500,
-    imageUrl: "https://images.unsplash.com/photo-1721322800607-8c38375eef04",
-    category: "أغطية وسائد",
-    material: "قطن"
+    title: "ستارة زرقاء بنقوش ذهبية",
+    description: "ستارة أنيقة باللون الأزرق الداكن مزينة بنقوش ذهبية فاخرة تشبه الرخام. إضافة مثالية للغرف الكلاسيكية.",
+    price: 6500,
+    imageUrl: "/lovable-uploads/d2d145ad-aed1-4a29-a375-c2a0aefdb971.png",
+    category: "حجاب نافذة/ريدو",
+    material: "ساتان منقوش"
   },
   {
     id: "5",
-    title: "طقم سرير أطفال",
-    description: "طقم سرير للأطفال بتصاميم ملونة وجذابة. مصنوع من قطن طبيعي 100٪.",
+    title: "ستارة بنفسجية بنقوش مموجة",
+    description: "ستارة جميلة باللون البنفسجي مع نقوش مموجة أنيقة. تتميز بملمسها الناعم وألوانها الهادئة المريحة للعين.",
     price: 5500,
-    imageUrl: "https://images.unsplash.com/photo-1649972904349-6e44c42644a7",
-    category: "أطقم سرير",
-    size: "160x120",
-    material: "قطن"
+    imageUrl: "/lovable-uploads/f88fb07a-d2ce-4f73-95f5-0b67c339a310.png",
+    category: "حجاب نافذة/ريدو",
+    material: "ساتان منقوش"
   }
 ];
 
 export const categories = [
   "الكل",
-  "أطقم سرير",
-  "أغطية سرير",
-  "ملاءات",
-  "أغطية وسائد"
+  "حجاب نافذة/ريدو"
 ];
 
 export function getProductsByCategory(category: string): Product[] {
