@@ -46,12 +46,76 @@ export const products: Product[] = [
     imageUrl: "/lovable-uploads/f88fb07a-d2ce-4f73-95f5-0b67c339a310.png",
     category: "حجاب نافذة/ريدو",
     material: "ساتان منقوش"
+  },
+  {
+    id: "6",
+    title: "زربية رخامية بخطوط ذهبية",
+    description: "زربية فاخرة بتصميم رخامي أنيق مع خطوط ذهبية لامعة. تضفي لمسة من الفخامة والأناقة على أي مساحة.",
+    price: 15000,
+    imageUrl: "/lovable-uploads/e2b92e53-cc44-42cd-9661-1dd93561060f.png",
+    category: "زَرابِي",
+    material: "نسيج فاخر"
+  },
+  {
+    id: "7",
+    title: "زربية بنقوش مربعات كلاسيكية",
+    description: "زربية جميلة بتصميم مربعات كلاسيكي متنوع الألوان. مثالية للمساحات التي تحتاج لمسة تراثية عصرية.",
+    price: 12000,
+    imageUrl: "/lovable-uploads/f2c5eecb-88e7-4c77-bdaf-491be3e6cc06.png",
+    category: "زَرابِي",
+    material: "قطن منسوج"
+  },
+  {
+    id: "8",
+    title: "زربية بنقوش خطوط متداخلة",
+    description: "زربية عصرية بتصميم خطوط متداخلة باللونين الأبيض والأسود. تناسب الديكورات المودرن والمعاصرة.",
+    price: 11000,
+    imageUrl: "/lovable-uploads/f32c9fa8-95da-494e-90f6-c372f51a430d.png",
+    category: "زَرابِي",
+    material: "نسيج مختلط"
+  },
+  {
+    id: "9",
+    title: "زربية كلاسيكية بإطار مزخرف",
+    description: "زربية تراثية فاخرة بتصميم كلاسيكي وإطار مزخرف بتفاصيل دقيقة. قطعة فنية تزين أي مكان بأناقة.",
+    price: 18000,
+    imageUrl: "/lovable-uploads/5f3db1b9-7bb5-422c-8984-878facff38cb.png",
+    category: "زَرابِي",
+    material: "حرير طبيعي"
+  },
+  {
+    id: "10",
+    title: "زربية بتصميم هندسي متشابك",
+    description: "زربية بتصميم هندسي متشابك معاصر باللونين البيج والبني. تضيف عمقاً وأناقة للمساحات الحديثة.",
+    price: 13500,
+    imageUrl: "/lovable-uploads/7895842f-a2a7-4aec-a4e3-7a5469fd3968.png",
+    category: "زَرابِي",
+    material: "صوف مخلوط"
+  },
+  {
+    id: "11",
+    title: "زربية بنقوش دائرية كلاسيكية",
+    description: "زربية فاخرة بنقوش دائرية كلاسيكية مفصلة بألوان محايدة. تجمع بين الأصالة والفخامة في تصميم واحد.",
+    price: 16500,
+    imageUrl: "/lovable-uploads/40e1d129-b75a-4197-9e64-e6dd6d360591.png",
+    category: "زَرابِي",
+    material: "صوف فاخر"
+  },
+  {
+    id: "12",
+    title: "زربية بنقوش ورقية طبيعية",
+    description: "زربية أنيقة بتصميم أوراق طبيعية باللون البيج والذهبي. تضفي إحساساً بالدفء والطبيعة على المكان.",
+    price: 14000,
+    imageUrl: "/lovable-uploads/895cac94-468a-481d-9f42-d9fe509dd050.png",
+    category: "زَرابِي",
+    material: "قطن وصوف"
   }
 ];
 
 export const categories = [
   "الكل",
-  "حجاب نافذة/ريدو"
+  "حجاب نافذة/ريدو",
+  "زَرابِي"
 ];
 
 export function getProductsByCategory(category: string): Product[] {
