@@ -59,7 +59,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
           <Button 
             size="sm" 
             onClick={handleOrderNow}
-            className="flex items-center gap-2 bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white font-bold px-4 py-2 shadow-lg hover:shadow-xl transition-all duration-200 transform hover:scale-105"
+            className="flex items-center gap-2 bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-600 hover:to-red-600 text-white font-bold px-4 py-2 shadow-lg hover:shadow-xl transition-all duration-200 transform hover:scale-105"
           >
             <ShoppingBag className="h-4 w-4" /> اطلب الآن
           </Button>

@@ -61,7 +61,7 @@ const ProductDetail = () => {
           <Button
             size="lg"
             onClick={handleOrderNow}
-            className="w-full md:w-auto flex items-center justify-center gap-2 bg-pastel-primary hover:bg-pastel-dark text-white"
+            className="w-full md:w-auto flex items-center justify-center gap-2 bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-600 hover:to-red-600 text-white font-bold px-6 py-3 shadow-lg hover:shadow-xl transition-all duration-200 transform hover:scale-105"
           >
             <ShoppingBag className="h-5 w-5" /> اطلب الآن
           </Button>
