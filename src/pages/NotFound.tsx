@@ -13,7 +13,7 @@ const NotFound = () => {
           عذراً، الصفحة التي تبحث عنها غير موجودة أو تم نقلها أو حذفها.
         </p>
         <Link to="/">
-          <Button size="lg" className="bg-pastel-primary hover:bg-pastel-taupe text-white">العودة إلى الصفحة الرئيسية</Button>
+          <Button size="lg" className="bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-600 hover:to-red-600 text-white font-bold shadow-lg hover:shadow-xl transition-all duration-200 transform hover:scale-105">العودة إلى الصفحة الرئيسية</Button>
         </Link>
       </div>
     </div>

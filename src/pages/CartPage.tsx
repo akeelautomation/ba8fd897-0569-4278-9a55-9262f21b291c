@@ -1,4 +1,3 @@
-
 import React from "react";
 import { Link } from "react-router-dom";
 import { useCart } from "@/contexts/CartContext";
@@ -20,7 +19,7 @@ const CartPage = () => {
           <h2 className="text-2xl font-bold mt-4 mb-2">سلة التسوق فارغة</h2>
           <p className="text-muted-foreground mb-8">لم تقم بإضافة أي منتجات إلى سلة التسوق</p>
           <Link to="/products">
-            <Button>تصفح المنتجات</Button>
+            <Button className="bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-600 hover:to-red-600 text-white font-bold shadow-lg hover:shadow-xl transition-all duration-200 transform hover:scale-105">تصفح المنتجات</Button>
           </Link>
         </div>
       </div>
@@ -113,7 +112,7 @@ const CartPage = () => {
               </div>
               
               <Link to="/checkout" className="block mt-6">
-                <Button className="w-full flex items-center gap-2">
+                <Button className="w-full flex items-center gap-2 bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-600 hover:to-red-600 text-white font-bold shadow-lg hover:shadow-xl transition-all duration-200 transform hover:scale-105">
                   متابعة الشراء <ArrowRight className="h-4 w-4" />
                 </Button>
               </Link>

@@ -18,13 +18,13 @@ const Hero = () => {
             </p>
             <div className="flex flex-wrap gap-4">
               <Link to="/products">
-                <Button size="lg" className="bg-pastel-primary hover:bg-pastel-dark text-white">
+                <Button size="lg" className="bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-600 hover:to-red-600 text-white font-bold shadow-lg hover:shadow-xl transition-all duration-200 transform hover:scale-105">
                   <Sheet className="ml-2 h-5 w-5" />
                   تسوق الآن
                 </Button>
               </Link>
               <Link to="/about">
-                <Button size="lg" variant="outline" className="border-pastel-primary text-pastel-dark hover:bg-pastel-primary hover:text-white">
+                <Button size="lg" variant="outline" className="border-orange-500 text-orange-600 hover:bg-gradient-to-r hover:from-orange-500 hover:to-red-500 hover:text-white hover:border-transparent font-bold transition-all duration-200 transform hover:scale-105">
                   اقرأ المزيد
                 </Button>
               </Link>

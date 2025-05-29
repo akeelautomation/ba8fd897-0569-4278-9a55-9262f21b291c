@@ -27,7 +27,7 @@ const FeaturedProducts = () => {
         
         <div className="text-center mt-12">
           <Link to="/products">
-            <Button size="lg" variant="outline" className="border-pastel-primary text-pastel-dark hover:bg-pastel-primary hover:text-white">
+            <Button size="lg" className="bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-600 hover:to-red-600 text-white font-bold shadow-lg hover:shadow-xl transition-all duration-200 transform hover:scale-105">
               عرض جميع المنتجات
             </Button>
           </Link>

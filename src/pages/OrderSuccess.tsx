@@ -23,7 +23,7 @@ const OrderSuccess = () => {
         </div>
         
         <Link to="/">
-          <Button>العودة للصفحة الرئيسية</Button>
+          <Button className="bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-600 hover:to-red-600 text-white font-bold shadow-lg hover:shadow-xl transition-all duration-200 transform hover:scale-105">العودة للصفحة الرئيسية</Button>
         </Link>
       </div>
     </div>
