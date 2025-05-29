@@ -21,6 +21,7 @@ import AdminDashboard from "./pages/AdminDashboard";
 // Layout components
 import Header from "./components/Header";
 import Footer from "./components/Footer";
+import ScrollToTop from "./components/ScrollToTop";
 
 const queryClient = new QueryClient();
 
@@ -31,6 +32,7 @@ const App = () => (
         <Toaster />
         <Sonner />
         <BrowserRouter>
+          <ScrollToTop />
           <div className="min-h-screen flex flex-col bg-warm-cream">
             <Header />
             <main className="flex-grow">
