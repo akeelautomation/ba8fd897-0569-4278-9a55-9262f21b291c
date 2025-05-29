@@ -261,6 +261,42 @@ export const products: Product[] = [
     imageUrl: "/lovable-uploads/505d8e5c-2f3d-4858-9382-9ad9e49f3da1.png",
     category: "أطقم أغطية سرير فاخرة",
     material: "قطن مطبوع فاخر"
+  },
+  {
+    id: "30",
+    title: "بطانية بنقوش زهور زرقاء",
+    description: "بطانية جميلة باللون الأبيض مزينة بنقوش زهور زرقاء وأوراق رقيقة. مثالية للدفء والراحة مع لمسة أنيقة من الألوان الهادئة.",
+    price: 6800,
+    imageUrl: "/lovable-uploads/2a4b044e-9fcc-4843-a75c-43af877cdca1.png",
+    category: "بطانيات",
+    material: "صوف ناعم"
+  },
+  {
+    id: "31",
+    title: "بطانية بنقوش زهور صفراء وبنية",
+    description: "بطانية دافئة بتصميم زهور صفراء وبنية جميلة على خلفية كريمية. تضفي إحساساً بالدفء والأناقة على أي مكان.",
+    price: 6500,
+    imageUrl: "/lovable-uploads/eafadad8-6c31-49a1-b936-55c9dbd82b13.png",
+    category: "بطانيات",
+    material: "صوف مختلط"
+  },
+  {
+    id: "32",
+    title: "بطانية سوداء بزهور حمراء",
+    description: "بطانية أنيقة باللون الأسود مزينة بزهور حمراء جميلة وحواف مطرزة بنقوش زخرفية. تجمع بين الأناقة والدفء.",
+    price: 7200,
+    imageUrl: "/lovable-uploads/81baca6c-fab0-4ea9-be3a-ed9943ff698d.png",
+    category: "بطانيات",
+    material: "قطن مطرز"
+  },
+  {
+    id: "33",
+    title: "بطانية بنقوش زهور وردية",
+    description: "بطانية ناعمة بتصميم زهور وردية رقيقة على خلفية بيضاء مع حواف وردية. مثالية لإضافة لمسة أنثوية رومانسية.",
+    price: 6300,
+    imageUrl: "/lovable-uploads/2dcd6196-2e9f-4e0f-8119-bc81ebd449e7.png",
+    category: "بطانيات",
+    material: "قطن ناعم"
   }
 ];
 
@@ -269,7 +305,8 @@ export const categories = [
   "حجاب نافذة/ريدو",
   "زَرابِي",
   "أغطية وسائد",
-  "أطقم أغطية سرير فاخرة"
+  "أطقم أغطية سرير فاخرة",
+  "بطانيات"
 ];
 
 export function getProductsByCategory(category: string): Product[] {
