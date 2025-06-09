@@ -58,59 +58,6 @@ const Index = () => {
           </div>
         </div>
       </section>
-      
-      {/* Testimonials Section */}
-      <section className="py-16 bg-sand-light">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold mb-4">آراء عملائنا</h2>
-            <p className="text-muted-foreground max-w-2xl mx-auto">
-              اطلع على تجارب عملائنا السابقين مع منتجاتنا وخدماتنا
-            </p>
-          </div>
-          
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div className="bg-white p-6 rounded-lg shadow-md">
-              <div className="flex items-center mb-4">
-                <div className="w-12 h-12 bg-brown rounded-full text-white flex items-center justify-center font-bold text-xl">أ</div>
-                <div className="mr-4">
-                  <h4 className="font-semibold">أحمد محمد</h4>
-                  <p className="text-sm text-muted-foreground">الجزائر العاصمة</p>
-                </div>
-              </div>
-              <p className="italic">
-                "جودة رائعة وخدمة ممتازة، أنا سعيد جداً بشراء غرفة النوم الكاملة من متجركم. التوصيل كان سريعاً والتركيب احترافي."
-              </p>
-            </div>
-            
-            <div className="bg-white p-6 rounded-lg shadow-md">
-              <div className="flex items-center mb-4">
-                <div className="w-12 h-12 bg-brown rounded-full text-white flex items-center justify-center font-bold text-xl">س</div>
-                <div className="mr-4">
-                  <h4 className="font-semibold">سارة علي</h4>
-                  <p className="text-sm text-muted-foreground">وهران</p>
-                </div>
-              </div>
-              <p className="italic">
-                "الأثاث الذي اشتريته من متجركم يضيف لمسة جمالية رائعة لمنزلي. الخامات ممتازة والألوان جميلة، وأسعاركم معقولة جداً مقارنة بالجودة."
-              </p>
-            </div>
-            
-            <div className="bg-white p-6 rounded-lg shadow-md">
-              <div className="flex items-center mb-4">
-                <div className="w-12 h-12 bg-brown rounded-full text-white flex items-center justify-center font-bold text-xl">م</div>
-                <div className="mr-4">
-                  <h4 className="font-semibold">محمد عبد القادر</h4>
-                  <p className="text-sm text-muted-foreground">قسنطينة</p>
-                </div>
-              </div>
-              <p className="italic">
-                "تعاملت مع المتجر لأكثر من مرة وفي كل مرة أكون راضياً عن الخدمة. أنصح به بشدة لمن يبحث عن أثاث عصري وجودة عالية."
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
     </div>
   );
 };
