@@ -8,7 +8,9 @@ export const products: Product[] = [
     price: 4500,
     imageUrl: "/lovable-uploads/714e2004-5421-42eb-87c0-95d751b1a1af.png",
     category: "حجاب نافذة/ريدو",
-    material: "قطن مطرز"
+    material: "قطن مطرز",
+    available: false,
+    availabilityMessage: "غير متوفر حالياً - قريباً"
   },
   {
     id: "2",
@@ -17,7 +19,9 @@ export const products: Product[] = [
     price: 4200,
     imageUrl: "/lovable-uploads/273bf218-4af0-4b6a-80c5-060f1d2566f8.png",
     category: "حجاب نافذة/ريدو",
-    material: "قطن مطرز"
+    material: "قطن مطرز",
+    available: false,
+    availabilityMessage: "غير متوفر حالياً - قريباً"
   },
   {
     id: "3",
@@ -26,7 +30,9 @@ export const products: Product[] = [
     price: 5000,
     imageUrl: "/lovable-uploads/bf4b51c6-7b17-4d10-9379-87b9e40ff9e5.png",
     category: "حجاب نافذة/ريدو",
-    material: "قطن منقوش"
+    material: "قطن منقوش",
+    available: false,
+    availabilityMessage: "غير متوفر حالياً - قريباً"
   },
   {
     id: "4",
@@ -35,7 +41,9 @@ export const products: Product[] = [
     price: 6500,
     imageUrl: "/lovable-uploads/d2d145ad-aed1-4a29-a375-c2a0aefdb971.png",
     category: "حجاب نافذة/ريدو",
-    material: "ساتان منقوش"
+    material: "ساتان منقوش",
+    available: false,
+    availabilityMessage: "غير متوفر حالياً - قريباً"
   },
   {
     id: "5",
@@ -44,7 +52,9 @@ export const products: Product[] = [
     price: 5500,
     imageUrl: "/lovable-uploads/f88fb07a-d2ce-4f73-95f5-0b67c339a310.png",
     category: "حجاب نافذة/ريدو",
-    material: "ساتان منقوش"
+    material: "ساتان منقوش",
+    available: false,
+    availabilityMessage: "غير متوفر حالياً - قريباً"
   },
   {
     id: "6",
@@ -53,7 +63,9 @@ export const products: Product[] = [
     price: 15000,
     imageUrl: "/lovable-uploads/e2b92e53-cc44-42cd-9661-1dd93561060f.png",
     category: "زَرابِي",
-    material: "نسيج فاخر"
+    material: "نسيج فاخر",
+    available: false,
+    availabilityMessage: "غير متوفر حالياً - قريباً"
   },
   {
     id: "7",
@@ -62,7 +74,9 @@ export const products: Product[] = [
     price: 12000,
     imageUrl: "/lovable-uploads/f2c5eecb-88e7-4c77-bdaf-491be3e6cc06.png",
     category: "زَرابِي",
-    material: "قطن منسوج"
+    material: "قطن منسوج",
+    available: false,
+    availabilityMessage: "غير متوفر حالياً - قريباً"
   },
   {
     id: "8",
@@ -71,7 +85,9 @@ export const products: Product[] = [
     price: 11000,
     imageUrl: "/lovable-uploads/f32c9fa8-95da-494e-90f6-c372f51a430d.png",
     category: "زَرابِي",
-    material: "نسيج مختلط"
+    material: "نسيج مختلط",
+    available: false,
+    availabilityMessage: "غير متوفر حالياً - قريباً"
   },
   {
     id: "9",
@@ -80,7 +96,9 @@ export const products: Product[] = [
     price: 18000,
     imageUrl: "/lovable-uploads/5f3db1b9-7bb5-422c-8984-878facff38cb.png",
     category: "زَرابِي",
-    material: "حرير طبيعي"
+    material: "حرير طبيعي",
+    available: false,
+    availabilityMessage: "غير متوفر حالياً - قريباً"
   },
   {
     id: "10",
@@ -89,7 +107,9 @@ export const products: Product[] = [
     price: 13500,
     imageUrl: "/lovable-uploads/7895842f-a2a7-4aec-a4e3-7a5469fd3968.png",
     category: "زَرابِي",
-    material: "صوف مخلوط"
+    material: "صوف مخلوط",
+    available: false,
+    availabilityMessage: "غير متوفر حالياً - قريباً"
   },
   {
     id: "11",
@@ -98,7 +118,9 @@ export const products: Product[] = [
     price: 16500,
     imageUrl: "/lovable-uploads/40e1d129-b75a-4197-9e64-e6dd6d360591.png",
     category: "زَرابِي",
-    material: "صوف فاخر"
+    material: "صوف فاخر",
+    available: false,
+    availabilityMessage: "غير متوفر حالياً - قريباً"
   },
   {
     id: "12",
@@ -107,7 +129,9 @@ export const products: Product[] = [
     price: 14000,
     imageUrl: "/lovable-uploads/895cac94-468a-481d-9f42-d9fe509dd050.png",
     category: "زَرابِي",
-    material: "قطن وصوف"
+    material: "قطن وصوف",
+    available: false,
+    availabilityMessage: "غير متوفر حالياً - قريباً"
   },
   {
     id: "13",
@@ -116,7 +140,9 @@ export const products: Product[] = [
     price: 3500,
     imageUrl: "/lovable-uploads/6885cc7d-6dd9-4a65-8032-f9ae6df29a4d.png",
     category: "أغطية وسائد",
-    material: "قطن مطبوع"
+    material: "قطن مطبوع",
+    available: false,
+    availabilityMessage: "غير متوفر حالياً - قريباً"
   },
   {
     id: "14",
@@ -125,7 +151,9 @@ export const products: Product[] = [
     price: 3800,
     imageUrl: "/lovable-uploads/091e4198-6999-414c-86e2-3642e45554b9.png",
     category: "أغطية وسائد",
-    material: "قطن مطبوع"
+    material: "قطن مطبوع",
+    available: false,
+    availabilityMessage: "غير متوفر حالياً - قريباً"
   },
   {
     id: "15",
@@ -134,7 +162,9 @@ export const products: Product[] = [
     price: 3600,
     imageUrl: "/lovable-uploads/1d7f84b6-8354-4c6b-a06a-a5bb60650dc7.png",
     category: "أغطية وسائد",
-    material: "قطن مطبوع"
+    material: "قطن مطبوع",
+    available: false,
+    availabilityMessage: "غير متوفر حالياً - قريباً"
   },
   {
     id: "16",
@@ -143,7 +173,9 @@ export const products: Product[] = [
     price: 4000,
     imageUrl: "/lovable-uploads/4d380d78-9c12-4283-8214-e948d174ec7f.png",
     category: "أغطية وسائد",
-    material: "قطن مطبوع"
+    material: "قطن مطبوع",
+    available: false,
+    availabilityMessage: "غير متوفر حالياً - قريباً"
   },
   {
     id: "17",
@@ -152,7 +184,9 @@ export const products: Product[] = [
     price: 3700,
     imageUrl: "/lovable-uploads/3990d9f2-12e3-4258-90eb-fe4d25ac4fd4.png",
     category: "أغطية وسائد",
-    material: "قطن مطبوع"
+    material: "قطن مطبوع",
+    available: false,
+    availabilityMessage: "غير متوفر حالياً - قريباً"
   },
   {
     id: "18",
@@ -161,7 +195,9 @@ export const products: Product[] = [
     price: 3600,
     imageUrl: "/lovable-uploads/d21b1541-8e34-4dd7-a209-a407b27e7aca.png",
     category: "أغطية وسائد",
-    material: "قطن مطبوع"
+    material: "قطن مطبوع",
+    available: false,
+    availabilityMessage: "غير متوفر حالياً - قريباً"
   },
   {
     id: "19",
@@ -170,7 +206,9 @@ export const products: Product[] = [
     price: 8500,
     imageUrl: "/lovable-uploads/d9534a5f-da92-422c-b261-1008fc8851d6.png",
     category: "أطقم أغطية سرير فاخرة",
-    material: "ساتان مع دانتيل"
+    material: "ساتان مع دانتيل",
+    available: false,
+    availabilityMessage: "غير متوفر حالياً - قريباً"
   },
   {
     id: "20",
@@ -179,7 +217,9 @@ export const products: Product[] = [
     price: 9200,
     imageUrl: "/lovable-uploads/04fb6a48-4a84-4c27-be87-d9b4d60c7768.png",
     category: "أطقم أغطية سرير فاخرة",
-    material: "قطن مطرز بخيوط ذهبية"
+    material: "قطن مطرز بخيوط ذهبية",
+    available: false,
+    availabilityMessage: "غير متوفر حالياً - قريباً"
   },
   {
     id: "21",
@@ -188,7 +228,9 @@ export const products: Product[] = [
     price: 8800,
     imageUrl: "/lovable-uploads/22282c41-59a8-4844-826a-6dce1bf918fd.png",
     category: "أطقم أغطية سرير فاخرة",
-    material: "ساتان مع دانتيل"
+    material: "ساتان مع دانتيل",
+    available: false,
+    availabilityMessage: "غير متوفر حالياً - قريباً"
   },
   {
     id: "22",
@@ -197,7 +239,9 @@ export const products: Product[] = [
     price: 9500,
     imageUrl: "/lovable-uploads/c68493c5-b37e-4b01-9791-b9e98ef7e865.png",
     category: "أطقم أغطية سرير فاخرة",
-    material: "قطن فاخر مطرز"
+    material: "قطن فاخر مطرز",
+    available: false,
+    availabilityMessage: "غير متوفر حالياً - قريباً"
   },
   {
     id: "23",
@@ -206,7 +250,9 @@ export const products: Product[] = [
     price: 8700,
     imageUrl: "/lovable-uploads/b41416b6-bf52-497f-9dc5-ac017a5579bc.png",
     category: "أطقم أغطية سرير فاخرة",
-    material: "ساتان مطرز"
+    material: "ساتان مطرز",
+    available: false,
+    availabilityMessage: "غير متوفر حالياً - قريباً"
   },
   {
     id: "24",
@@ -215,7 +261,9 @@ export const products: Product[] = [
     price: 10200,
     imageUrl: "/lovable-uploads/3d14eb54-f5d6-4bcd-bc7c-f8d42e06e708.png",
     category: "أطقم أغطية سرير فاخرة",
-    material: "ساتان ذهبي مع دانتيل"
+    material: "ساتان ذهبي مع دانتيل",
+    available: false,
+    availabilityMessage: "غير متوفر حالياً - قريباً"
   },
   {
     id: "25",
@@ -224,7 +272,9 @@ export const products: Product[] = [
     price: 8600,
     imageUrl: "/lovable-uploads/7ae3d900-c33b-494e-97a2-cfe013148822.png",
     category: "أطقم أغطية سرير فاخرة",
-    material: "قطن ناعم مع دانتيل"
+    material: "قطن ناعم مع دانتيل",
+    available: false,
+    availabilityMessage: "غير متوفر حالياً - قريباً"
   },
   {
     id: "26",
@@ -233,7 +283,9 @@ export const products: Product[] = [
     price: 9800,
     imageUrl: "/lovable-uploads/526ae62b-6e1c-41d1-8305-52379eaa25bf.png",
     category: "أطقم أغطية سرير فاخرة",
-    material: "ساتان مطرز بخيوط ذهبية"
+    material: "ساتان مطرز بخيوط ذهبية",
+    available: false,
+    availabilityMessage: "غير متوفر حالياً - قريباً"
   },
   {
     id: "27",
@@ -242,7 +294,9 @@ export const products: Product[] = [
     price: 9100,
     imageUrl: "/lovable-uploads/15070cfd-533c-405b-8d47-62721aea6549.png",
     category: "أطقم أغطية سرير فاخرة",
-    material: "ساتان فاخر مطرز"
+    material: "ساتان فاخر مطرز",
+    available: false,
+    availabilityMessage: "غير متوفر حالياً - قريباً"
   },
   {
     id: "28",
@@ -251,7 +305,9 @@ export const products: Product[] = [
     price: 8900,
     imageUrl: "/lovable-uploads/f68db4af-0b42-471b-a89a-4b4256139fe9.png",
     category: "أطقم أغطية سرير فاخرة",
-    material: "قطن فاخر مطرز"
+    material: "قطن فاخر مطرز",
+    available: false,
+    availabilityMessage: "غير متوفر حالياً - قريباً"
   },
   {
     id: "29",
@@ -260,7 +316,9 @@ export const products: Product[] = [
     price: 7800,
     imageUrl: "/lovable-uploads/505d8e5c-2f3d-4858-9382-9ad9e49f3da1.png",
     category: "أطقم أغطية سرير فاخرة",
-    material: "قطن مطبوع فاخر"
+    material: "قطن مطبوع فاخر",
+    available: false,
+    availabilityMessage: "غير متوفر حالياً - قريباً"
   },
   {
     id: "30",
@@ -269,7 +327,9 @@ export const products: Product[] = [
     price: 6800,
     imageUrl: "/lovable-uploads/2a4b044e-9fcc-4843-a75c-43af877cdca1.png",
     category: "بطانيات",
-    material: "صوف ناعم"
+    material: "صوف ناعم",
+    available: false,
+    availabilityMessage: "غير متوفر حالياً - قريباً"
   },
   {
     id: "31",
@@ -278,7 +338,9 @@ export const products: Product[] = [
     price: 6500,
     imageUrl: "/lovable-uploads/eafadad8-6c31-49a1-b936-55c9dbd82b13.png",
     category: "بطانيات",
-    material: "صوف مختلط"
+    material: "صوف مختلط",
+    available: false,
+    availabilityMessage: "غير متوفر حالياً - قريباً"
   },
   {
     id: "32",
@@ -287,7 +349,9 @@ export const products: Product[] = [
     price: 7200,
     imageUrl: "/lovable-uploads/81baca6c-fab0-4ea9-be3a-ed9943ff698d.png",
     category: "بطانيات",
-    material: "قطن مطرز"
+    material: "قطن مطرز",
+    available: false,
+    availabilityMessage: "غير متوفر حالياً - قريباً"
   },
   {
     id: "33",
@@ -296,7 +360,9 @@ export const products: Product[] = [
     price: 6300,
     imageUrl: "/lovable-uploads/2dcd6196-2e9f-4e0f-8119-bc81ebd449e7.png",
     category: "بطانيات",
-    material: "قطن ناعم"
+    material: "قطن ناعم",
+    available: false,
+    availabilityMessage: "غير متوفر حالياً - قريباً"
   },
   {
     id: "34",
@@ -305,7 +371,8 @@ export const products: Product[] = [
     price: 2100,
     imageUrl: "/lovable-uploads/06779e47-03f2-4822-99ed-2a31f77e2d6f.png",
     category: "غطاء سرير مع غطاء وسادة",
-    material: "قطن مطبوع"
+    material: "قطن مطبوع",
+    available: true
   },
   {
     id: "35",
@@ -314,7 +381,8 @@ export const products: Product[] = [
     price: 2100,
     imageUrl: "/lovable-uploads/e16d6036-88b4-46ca-9c4a-68ffb5368dd2.png",
     category: "غطاء سرير مع غطاء وسادة",
-    material: "قطن منقوش"
+    material: "قطن منقوش",
+    available: true
   },
   {
     id: "36",
@@ -323,7 +391,8 @@ export const products: Product[] = [
     price: 2100,
     imageUrl: "/lovable-uploads/b4778976-b699-49aa-8436-bc2778ae24e2.png",
     category: "غطاء سرير مع غطاء وسادة",
-    material: "قطن فاخر"
+    material: "قطن فاخر",
+    available: true
   },
   {
     id: "37",
@@ -332,7 +401,8 @@ export const products: Product[] = [
     price: 2100,
     imageUrl: "/lovable-uploads/4ebdd5e8-e541-4d0f-8f0e-23303f4bebb8.png",
     category: "غطاء سرير مع غطاء وسادة",
-    material: "قطن مطبوع"
+    material: "قطن مطبوع",
+    available: true
   },
   {
     id: "38",
@@ -341,7 +411,8 @@ export const products: Product[] = [
     price: 2100,
     imageUrl: "/lovable-uploads/286af91c-7b0f-4024-a418-36e3f9f5fb5b.png",
     category: "غطاء سرير مع غطاء وسادة",
-    material: "قطن مطرز"
+    material: "قطن مطرز",
+    available: true
   },
   {
     id: "39",
@@ -350,7 +421,8 @@ export const products: Product[] = [
     price: 2100,
     imageUrl: "/lovable-uploads/19265160-dbc7-4b74-858a-18f8e8c22959.png",
     category: "غطاء سرير مع غطاء وسادة",
-    material: "قطن مطبوع"
+    material: "قطن مطبوع",
+    available: true
   },
   {
     id: "40",
@@ -359,7 +431,8 @@ export const products: Product[] = [
     price: 2100,
     imageUrl: "/lovable-uploads/6f037d1d-8887-4ccc-8cf9-f4e60e044cab.png",
     category: "غطاء سرير مع غطاء وسادة",
-    material: "قطن منقوش"
+    material: "قطن منقوش",
+    available: true
   }
 ];
 

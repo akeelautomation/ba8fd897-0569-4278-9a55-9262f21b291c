@@ -27,6 +27,7 @@ const ProductDetail = () => {
   };
   
   const handleOrderNow = () => {
+    if (!product.available) return;
     addToCart(product);
     navigate("/checkout");
   };
@@ -35,11 +36,20 @@ const ProductDetail = () => {
     <div className="container mx-auto px-4 py-12">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
         <div className="bg-white rounded-lg shadow-md overflow-hidden border border-pastel-medium">
-          <img 
-            src={product.imageUrl} 
-            alt={product.title} 
-            className="w-full h-auto object-cover"
-          />
+          <div className="relative">
+            <img 
+              src={product.imageUrl} 
+              alt={product.title} 
+              className={`w-full h-auto object-cover ${!product.available ? 'opacity-60' : ''}`}
+            />
+            {!product.available && (
+              <div className="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center">
+                <span className="text-white font-bold text-xl text-center px-4">
+                  {product.availabilityMessage}
+                </span>
+              </div>
+            )}
+          </div>
         </div>
         
         <div>
@@ -48,7 +58,11 @@ const ProductDetail = () => {
             <span className="text-xl font-bold text-pastel-dark block mb-2">
               {formatPrice(product.price)}
             </span>
-            <p className="text-muted-foreground">التوصيل مجاني لجميع مناطق الجزائر</p>
+            {product.available ? (
+              <p className="text-muted-foreground">التوصيل مجاني لجميع مناطق الجزائر</p>
+            ) : (
+              <p className="text-red-600 font-semibold">{product.availabilityMessage}</p>
+            )}
           </div>
           
           <div className="mb-8">
@@ -61,9 +75,15 @@ const ProductDetail = () => {
           <Button
             size="lg"
             onClick={handleOrderNow}
-            className="w-full md:w-auto flex items-center justify-center gap-2 bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-600 hover:to-red-600 text-white font-bold px-6 py-3 shadow-lg hover:shadow-xl transition-all duration-200 transform hover:scale-105"
+            disabled={!product.available}
+            className={`w-full md:w-auto flex items-center justify-center gap-2 font-bold px-6 py-3 shadow-lg transition-all duration-200 ${
+              product.available 
+                ? 'bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-600 hover:to-red-600 text-white hover:shadow-xl transform hover:scale-105' 
+                : 'bg-gray-400 text-gray-600 cursor-not-allowed'
+            }`}
           >
-            <ShoppingBag className="h-5 w-5" /> اطلب الآن
+            <ShoppingBag className="h-5 w-5" /> 
+            {product.available ? 'اطلب الآن' : 'غير متوفر حالياً'}
           </Button>
         </div>
       </div>

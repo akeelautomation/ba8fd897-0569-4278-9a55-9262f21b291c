@@ -20,6 +20,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
   };
   
   const handleOrderNow = () => {
+    if (!product.available) return;
     addToCart(product);
     navigate("/checkout");
   };
@@ -27,11 +28,20 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
   return (
     <div className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300 border border-pastel-medium">
       <Link to={`/product/${product.id}`}>
-        <img 
-          src={product.imageUrl} 
-          alt={product.title} 
-          className="w-full h-60 object-cover"
-        />
+        <div className="relative">
+          <img 
+            src={product.imageUrl} 
+            alt={product.title} 
+            className={`w-full h-60 object-cover ${!product.available ? 'opacity-60' : ''}`}
+          />
+          {!product.available && (
+            <div className="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center">
+              <span className="text-white font-bold text-lg text-center px-4">
+                {product.availabilityMessage}
+              </span>
+            </div>
+          )}
+        </div>
       </Link>
       <div className="p-4">
         <Link to={`/product/${product.id}`}>
@@ -53,15 +63,26 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
               الخامة: {product.material}
             </Badge>
           )}
+          {!product.available && (
+            <Badge variant="outline" className="bg-red-100 text-red-700 border-red-300">
+              غير متوفر
+            </Badge>
+          )}
         </div>
         <div className="flex justify-between items-center mt-4">
           <span className="text-lg font-bold text-pastel-dark">{formatPrice(product.price)}</span>
           <Button 
             size="sm" 
             onClick={handleOrderNow}
-            className="flex items-center gap-2 bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-600 hover:to-red-600 text-white font-bold px-4 py-2 shadow-lg hover:shadow-xl transition-all duration-200 transform hover:scale-105"
+            disabled={!product.available}
+            className={`flex items-center gap-2 font-bold px-4 py-2 shadow-lg transition-all duration-200 ${
+              product.available 
+                ? 'bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-600 hover:to-red-600 text-white hover:shadow-xl transform hover:scale-105' 
+                : 'bg-gray-400 text-gray-600 cursor-not-allowed'
+            }`}
           >
-            <ShoppingBag className="h-4 w-4" /> اطلب الآن
+            <ShoppingBag className="h-4 w-4" /> 
+            {product.available ? 'اطلب الآن' : 'غير متوفر'}
           </Button>
         </div>
       </div>
