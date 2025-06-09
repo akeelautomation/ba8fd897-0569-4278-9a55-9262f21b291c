@@ -16,6 +16,7 @@ import OrderSuccess from "./pages/OrderSuccess";
 import AboutPage from "./pages/AboutPage";
 import NotFound from "./pages/NotFound";
 import AdminDashboard from "./pages/AdminDashboard";
+import BeddingLandingPage from "./pages/BeddingLandingPage";
 
 // Layout components
 import Header from "./components/Header";
@@ -44,6 +45,7 @@ const App = () => (
                 <Route path="/order-success" element={<OrderSuccess />} />
                 <Route path="/about" element={<AboutPage />} />
                 <Route path="/admin" element={<AdminDashboard />} />
+                <Route path="/bedding-landing" element={<BeddingLandingPage />} />
                 <Route path="*" element={<NotFound />} />
               </Routes>
             </main>
