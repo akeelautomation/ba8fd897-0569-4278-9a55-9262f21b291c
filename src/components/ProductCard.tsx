@@ -70,7 +70,9 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
           )}
         </div>
         <div className="flex justify-between items-center mt-4">
-          <span className="text-lg font-bold text-pastel-dark">{formatPrice(product.price)}</span>
+          {product.available && (
+            <span className="text-lg font-bold text-pastel-dark">{formatPrice(product.price)}</span>
+          )}
           <Button 
             size="sm" 
             onClick={handleOrderNow}
@@ -79,7 +81,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
               product.available 
                 ? 'bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-600 hover:to-red-600 text-white hover:shadow-xl transform hover:scale-105' 
                 : 'bg-gray-400 text-gray-600 cursor-not-allowed'
-            }`}
+            } ${!product.available ? 'ml-auto' : ''}`}
           >
             <ShoppingBag className="h-4 w-4" /> 
             {product.available ? 'اطلب الآن' : 'غير متوفر'}

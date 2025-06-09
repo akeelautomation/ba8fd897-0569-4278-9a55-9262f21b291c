@@ -55,11 +55,13 @@ const ProductDetail = () => {
         <div>
           <h1 className="text-3xl font-bold mb-4">{product.title}</h1>
           <div className="mb-6">
-            <span className="text-xl font-bold text-pastel-dark block mb-2">
-              {formatPrice(product.price)}
-            </span>
             {product.available ? (
-              <p className="text-muted-foreground">التوصيل مجاني لجميع مناطق الجزائر</p>
+              <>
+                <span className="text-xl font-bold text-pastel-dark block mb-2">
+                  {formatPrice(product.price)}
+                </span>
+                <p className="text-muted-foreground">التوصيل مجاني لجميع مناطق الجزائر</p>
+              </>
             ) : (
               <p className="text-red-600 font-semibold">{product.availabilityMessage}</p>
             )}
