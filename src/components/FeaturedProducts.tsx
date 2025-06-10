@@ -6,8 +6,8 @@ import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 
 const FeaturedProducts = () => {
-  // Take first 4 products for featured section
-  const featuredProducts = products.slice(0, 4);
+  // Filter to only show available products, then take first 4
+  const featuredProducts = products.filter(product => product.available !== false).slice(0, 4);
   
   return (
     <section className="py-16 bg-pastel-light">
