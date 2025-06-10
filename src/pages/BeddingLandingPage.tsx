@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -11,7 +10,7 @@ import { ShoppingBag, Phone, MapPin } from "lucide-react";
 
 const BeddingLandingPage = () => {
   const [selectedProduct, setSelectedProduct] = useState("");
-  const [quantity, setQuantquantity] = useState(1);
+  const [quantity, setQuantity] = useState(1);
   const [customerName, setCustomerName] = useState("");
   const [customerPhone, setCustomerPhone] = useState("");
   const [wilaya, setWilaya] = useState("");
