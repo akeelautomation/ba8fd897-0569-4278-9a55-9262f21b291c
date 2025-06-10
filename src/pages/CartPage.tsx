@@ -1,3 +1,4 @@
+
 import React from "react";
 import { Link } from "react-router-dom";
 import { useCart } from "@/contexts/CartContext";
@@ -6,6 +7,8 @@ import { Trash, Plus, Minus, ArrowRight, ShoppingCart } from "lucide-react";
 
 const CartPage = () => {
   const { cart, removeFromCart, updateQuantity, getTotalPrice } = useCart();
+  
+  const shippingPrice = 600;
   
   const formatPrice = (price: number) => {
     return `${price.toLocaleString()} دج`;
@@ -104,11 +107,11 @@ const CartPage = () => {
               </div>
               <div className="flex justify-between pb-4 border-b">
                 <span>التوصيل</span>
-                <span>مجاني</span>
+                <span>{formatPrice(shippingPrice)}</span>
               </div>
               <div className="flex justify-between font-bold text-lg">
                 <span>المجموع الكلي</span>
-                <span>{formatPrice(getTotalPrice())}</span>
+                <span>{formatPrice(getTotalPrice() + shippingPrice)}</span>
               </div>
               
               <Link to="/checkout" className="block mt-6">
