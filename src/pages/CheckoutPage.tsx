@@ -1,3 +1,4 @@
+
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useCart } from "@/contexts/CartContext";
@@ -16,6 +17,8 @@ const CheckoutPage = () => {
   const navigate = useNavigate();
   const { cart, getTotalPrice, setCustomer, clearCart } = useCart();
   const [isSubmitting, setIsSubmitting] = useState(false);
+  
+  const shippingPrice = 600;
   
   const [formData, setFormData] = useState<Customer>({
     name: "",
@@ -108,7 +111,7 @@ const CheckoutPage = () => {
           customer_phone: formData.phone,
           customer_wilaya: formData.wilaya,
           customer_address: formData.address,
-          total_price: getTotalPrice(),
+          total_price: getTotalPrice() + shippingPrice,
           status: "pending",
           // Add the first product information to the order
           product_title: firstItem.product.title,
@@ -309,12 +312,12 @@ const CheckoutPage = () => {
               
               <div className="flex justify-between pb-4 border-b">
                 <span>التوصيل</span>
-                <span>مجاني</span>
+                <span>{formatPrice(shippingPrice)}</span>
               </div>
               
               <div className="flex justify-between font-bold text-lg">
                 <span>المجموع الكلي</span>
-                <span>{formatPrice(getTotalPrice())}</span>
+                <span>{formatPrice(getTotalPrice() + shippingPrice)}</span>
               </div>
               
               <div className="bg-sand-light p-4 rounded-md mt-4">
