@@ -21,8 +21,21 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
   
   const handleOrderNow = () => {
     if (!product.available) return;
+    
+    // For products with color options, navigate to detail page instead
+    if (product.colors && product.colors.length > 0) {
+      navigate(`/product/${product.id}`);
+      return;
+    }
+    
     addToCart(product);
     navigate("/checkout");
+  };
+  
+  const getButtonText = () => {
+    if (!product.available) return 'غير متوفر';
+    if (product.colors && product.colors.length > 0) return 'اختر اللون';
+    return 'اطلب الآن';
   };
   
   return (
@@ -63,6 +76,11 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
               الخامة: {product.material}
             </Badge>
           )}
+          {product.colors && product.colors.length > 0 && (
+            <Badge variant="outline" className="bg-blue-100 text-blue-700 border-blue-300">
+              {product.colors.length} ألوان متاحة
+            </Badge>
+          )}
           {!product.available && (
             <Badge variant="outline" className="bg-red-100 text-red-700 border-red-300">
               غير متوفر
@@ -84,7 +102,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
             } ${!product.available ? 'ml-auto' : ''}`}
           >
             <ShoppingBag className="h-4 w-4" /> 
-            {product.available ? 'اطلب الآن' : 'غير متوفر'}
+            {getButtonText()}
           </Button>
         </div>
       </div>

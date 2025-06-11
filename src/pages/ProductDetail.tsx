@@ -5,6 +5,7 @@ import { getProductById } from "@/data/products";
 import { Button } from "@/components/ui/button";
 import { useCart } from "@/contexts/CartContext";
 import { ShoppingBag } from "lucide-react";
+import BeddingProductDetail from "@/components/BeddingProductDetail";
 
 const ProductDetail = () => {
   const { id } = useParams<{ id: string }>();
@@ -20,6 +21,11 @@ const ProductDetail = () => {
         <Button onClick={() => navigate("/products")}>العودة للمنتجات</Button>
       </div>
     );
+  }
+
+  // Use special component for bedding products with color selection
+  if (product.category === "غطاء سرير مع غطاء وسادة" && product.colors) {
+    return <BeddingProductDetail product={product} />;
   }
   
   const formatPrice = (price: number) => {

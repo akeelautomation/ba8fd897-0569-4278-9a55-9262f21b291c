@@ -1,3 +1,10 @@
+
+export interface ProductColor {
+  name: string;
+  imageUrl: string;
+  description: string;
+}
+
 export interface Product {
   id: string;
   title: string;
@@ -9,11 +16,13 @@ export interface Product {
   material?: string; // Optional material information
   available?: boolean; // Availability status
   availabilityMessage?: string; // Custom availability message
+  colors?: ProductColor[]; // Optional color variations
 }
 
 export interface CartItem {
   product: Product;
   quantity: number;
+  selectedColor?: string; // Track selected color for products with variations
 }
 
 export interface Customer {

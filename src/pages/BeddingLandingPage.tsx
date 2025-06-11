@@ -10,7 +10,7 @@ import { useNavigate } from "react-router-dom";
 import { ShoppingBag, Phone, MapPin } from "lucide-react";
 
 const BeddingLandingPage = () => {
-  const [selectedProduct, setSelectedProduct] = useState("");
+  const [selectedColor, setSelectedColor] = useState("");
   const [quantity, setQuantity] = useState(1);
   const [customerName, setCustomerName] = useState("");
   const [customerPhone, setCustomerPhone] = useState("");
@@ -21,20 +21,27 @@ const BeddingLandingPage = () => {
   const navigate = useNavigate();
   
   const beddingProducts = getProductsByCategory("غطاء سرير مع غطاء وسادة");
+  const beddingProduct = beddingProducts[0]; // Get the consolidated product
   const shippingPrice = 600;
   
-  const selectedProductData = beddingProducts.find(p => p.id === selectedProduct);
-  const subtotal = selectedProductData ? selectedProductData.price * quantity : 0;
+  const selectedColorData = beddingProduct?.colors?.find(color => color.name === selectedColor);
+  const subtotal = beddingProduct ? beddingProduct.price * quantity : 0;
   const total = subtotal + shippingPrice;
   
   const handleOrderNow = () => {
-    if (!selectedProductData || !customerName || !customerPhone || !wilaya) {
+    if (!beddingProduct || !selectedColorData || !customerName || !customerPhone || !wilaya) {
       alert("يرجى ملء جميع البيانات المطلوبة");
       return;
     }
     
+    const productWithSelectedColor = {
+      ...beddingProduct,
+      imageUrl: selectedColorData.imageUrl,
+      title: `${beddingProduct.title} - ${selectedColorData.name}`
+    };
+    
     for (let i = 0; i < quantity; i++) {
-      addToCart(selectedProductData);
+      addToCart(productWithSelectedColor);
     }
     navigate("/checkout");
   };
@@ -49,29 +56,29 @@ const BeddingLandingPage = () => {
               يرجى ادخال معلوماتك فقط لنا كنت معيدا بشراء مكرر
             </h1>
             
-            {selectedProductData && (
+            {selectedColorData && (
               <div className="mb-6">
                 <img 
-                  src={selectedProductData.imageUrl} 
-                  alt={selectedProductData.title}
+                  src={selectedColorData.imageUrl} 
+                  alt={selectedColorData.name}
                   className="w-full h-64 object-cover rounded-lg mb-4"
                 />
-                <h3 className="text-lg font-semibold mb-2">{selectedProductData.title}</h3>
-                <p className="text-muted-foreground text-sm">{selectedProductData.description}</p>
+                <h3 className="text-lg font-semibold mb-2">{beddingProduct?.title} - {selectedColorData.name}</h3>
+                <p className="text-muted-foreground text-sm">{selectedColorData.description}</p>
               </div>
             )}
             
             <div className="space-y-4">
               <div>
-                <Label htmlFor="product">اختر المنتج</Label>
-                <Select value={selectedProduct} onValueChange={setSelectedProduct}>
+                <Label htmlFor="color">اختر اللون</Label>
+                <Select value={selectedColor} onValueChange={setSelectedColor}>
                   <SelectTrigger>
-                    <SelectValue placeholder="اختر المنتج" />
+                    <SelectValue placeholder="اختر اللون" />
                   </SelectTrigger>
                   <SelectContent>
-                    {beddingProducts.map((product) => (
-                      <SelectItem key={product.id} value={product.id}>
-                        {product.title} - {product.price.toLocaleString()} دج
+                    {beddingProduct?.colors?.map((color) => (
+                      <SelectItem key={color.name} value={color.name}>
+                        {color.name}
                       </SelectItem>
                     ))}
                   </SelectContent>
@@ -176,7 +183,7 @@ const BeddingLandingPage = () => {
               
               <Button 
                 onClick={handleOrderNow}
-                disabled={!selectedProduct || !customerName || !customerPhone || !wilaya}
+                disabled={!selectedColor || !customerName || !customerPhone || !wilaya}
                 className="w-full bg-gradient-to-r from-teal-500 to-cyan-500 hover:from-teal-600 hover:to-cyan-600 text-white font-bold py-3 text-lg"
               >
                 <ShoppingBag className="h-5 w-5 mr-2" />
