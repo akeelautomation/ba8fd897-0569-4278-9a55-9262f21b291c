@@ -43,15 +43,16 @@ const BeddingProductDetail: React.FC<BeddingProductDetailProps> = ({ product }) 
   return (
     <div className="min-h-screen bg-pastel-beige">
       <div className="container mx-auto px-4 py-8">
-        <div className="grid grid-cols-1 lg:grid-cols-5 gap-8">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
           {/* Product Images Section */}
-          <div className="lg:col-span-3 space-y-6">
+          <div className="space-y-6">
+            {/* Main Product Image */}
             <div className="bg-white rounded-xl shadow-lg overflow-hidden border border-pastel-medium">
               <div className="relative">
                 <img 
                   src={selectedColor?.imageUrl || product.imageUrl} 
-                  alt={product.title} 
-                  className="w-full h-80 lg:h-96 object-cover"
+                  alt={`${product.title} - ${selectedColor?.name || ''}`} 
+                  className="w-full h-[500px] object-cover transition-all duration-300"
                 />
               </div>
             </div>
@@ -59,24 +60,28 @@ const BeddingProductDetail: React.FC<BeddingProductDetailProps> = ({ product }) 
             {/* Color Selection */}
             {product.colors && (
               <div className="bg-white rounded-xl shadow-lg p-6 border border-pastel-medium">
-                <h3 className="text-xl font-semibold mb-4 text-pastel-dark">اختر اللون</h3>
-                <div className="grid grid-cols-2 gap-4">
+                <h3 className="text-xl font-semibold mb-4 text-pastel-dark">اختر اللون المفضل</h3>
+                <div className="grid grid-cols-3 gap-4">
                   {product.colors.map((color, index) => (
                     <div
                       key={index}
-                      className={`cursor-pointer rounded-lg border-2 p-3 transition-all ${
+                      className={`cursor-pointer rounded-lg border-2 p-2 transition-all duration-200 ${
                         selectedColor?.name === color.name
-                          ? 'border-orange-500 shadow-lg bg-orange-50'
-                          : 'border-pastel-medium hover:border-pastel-primary hover:shadow-md'
+                          ? 'border-orange-500 shadow-lg bg-orange-50 scale-105'
+                          : 'border-pastel-medium hover:border-pastel-primary hover:shadow-md hover:scale-102'
                       }`}
                       onClick={() => setSelectedColor(color)}
                     >
                       <img
                         src={color.imageUrl}
                         alt={color.name}
-                        className="w-full h-24 object-cover rounded-md mb-2"
+                        className="w-full h-20 object-cover rounded-md mb-2"
                       />
-                      <p className="text-sm font-medium text-center text-pastel-dark">{color.name}</p>
+                      <p className={`text-xs font-medium text-center ${
+                        selectedColor?.name === color.name ? 'text-orange-600' : 'text-pastel-dark'
+                      }`}>
+                        {color.name}
+                      </p>
                     </div>
                   ))}
                 </div>
@@ -86,6 +91,11 @@ const BeddingProductDetail: React.FC<BeddingProductDetailProps> = ({ product }) 
             {/* Product Info */}
             <div className="bg-white rounded-xl shadow-lg p-6 border border-pastel-medium">
               <h1 className="text-3xl font-bold mb-4 text-pastel-dark">{product.title}</h1>
+              {selectedColor && (
+                <div className="mb-4 p-3 bg-orange-50 rounded-lg border border-orange-200">
+                  <p className="text-orange-600 font-semibold">اللون المختار: {selectedColor.name}</p>
+                </div>
+              )}
               <p className="text-pastel-charcoal mb-4 leading-relaxed">
                 {selectedColor?.description || product.description}
               </p>
@@ -99,7 +109,7 @@ const BeddingProductDetail: React.FC<BeddingProductDetailProps> = ({ product }) 
           </div>
 
           {/* Order Form Section */}
-          <div className="lg:col-span-2">
+          <div>
             <div className="bg-white rounded-xl shadow-lg p-6 border border-pastel-medium sticky top-4">
               <div className="space-y-6">
                 <div className="text-center border-b border-pastel-medium pb-4">
@@ -112,6 +122,9 @@ const BeddingProductDetail: React.FC<BeddingProductDetailProps> = ({ product }) 
                     {formatPrice(product.price)}
                   </div>
                   <p className="text-pastel-charcoal">غطاء سرير مع غطاء وسادة</p>
+                  {selectedColor && (
+                    <p className="text-sm text-orange-600 mt-1">اللون: {selectedColor.name}</p>
+                  )}
                 </div>
 
                 <div className="space-y-4">
@@ -147,7 +160,7 @@ const BeddingProductDetail: React.FC<BeddingProductDetailProps> = ({ product }) 
                       <SelectTrigger className="bg-pastel-light border-pastel-medium text-pastel-dark focus:border-pastel-primary">
                         <SelectValue placeholder="اختر الولاية" />
                       </SelectTrigger>
-                      <SelectContent className="bg-white border-pastel-medium">
+                      <SelectContent className="bg-white border-pastel-medium max-h-[200px] overflow-y-auto">
                         {wilayas.map((wilaya) => (
                           <SelectItem key={wilaya} value={wilaya} className="text-pastel-dark hover:bg-pastel-light">
                             {wilaya}

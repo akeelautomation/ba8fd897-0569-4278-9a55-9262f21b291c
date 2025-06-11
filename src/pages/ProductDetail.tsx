@@ -51,15 +51,15 @@ const ProductDetail = () => {
   return (
     <div className="min-h-screen bg-pastel-beige">
       <div className="container mx-auto px-4 py-8">
-        <div className="grid grid-cols-1 lg:grid-cols-5 gap-8">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
           {/* Product Images Section */}
-          <div className="lg:col-span-3 space-y-6">
+          <div className="space-y-6">
             <div className="bg-white rounded-xl shadow-lg overflow-hidden border border-pastel-medium">
               <div className="relative">
                 <img 
                   src={product.imageUrl} 
                   alt={product.title} 
-                  className={`w-full h-80 lg:h-96 object-cover ${!product.available ? 'opacity-60' : ''}`}
+                  className={`w-full h-[500px] object-cover ${!product.available ? 'opacity-60' : ''}`}
                 />
                 {!product.available && (
                   <div className="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center">
@@ -85,7 +85,7 @@ const ProductDetail = () => {
           </div>
 
           {/* Order Form Section */}
-          <div className="lg:col-span-2">
+          <div>
             <div className="bg-white rounded-xl shadow-lg p-6 border border-pastel-medium sticky top-4">
               <div className="space-y-6">
                 <div className="text-center border-b border-pastel-medium pb-4">
@@ -133,7 +133,7 @@ const ProductDetail = () => {
                       <SelectTrigger className="bg-pastel-light border-pastel-medium text-pastel-dark focus:border-pastel-primary">
                         <SelectValue placeholder="اختر الولاية" />
                       </SelectTrigger>
-                      <SelectContent className="bg-white border-pastel-medium">
+                      <SelectContent className="bg-white border-pastel-medium max-h-[200px] overflow-y-auto">
                         {wilayas.map((wilaya) => (
                           <SelectItem key={wilaya} value={wilaya} className="text-pastel-dark hover:bg-pastel-light">
                             {wilaya}
