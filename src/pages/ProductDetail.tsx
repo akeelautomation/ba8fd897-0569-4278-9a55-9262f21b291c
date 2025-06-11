@@ -1,20 +1,27 @@
 
-import React from "react";
+import React, { useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { getProductById } from "@/data/products";
 import { Button } from "@/components/ui/button";
-import { useCart } from "@/contexts/CartContext";
 import { ShoppingBag, Phone, MapPin } from "lucide-react";
 import BeddingProductDetail from "@/components/BeddingProductDetail";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { wilayas } from "@/data/wilayas";
+import { supabase } from "@/integrations/supabase/client";
+import { useToast } from "@/hooks/use-toast";
 
 const ProductDetail = () => {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
-  const { addToCart } = useCart();
+  const { toast } = useToast();
+  
+  const [customerName, setCustomerName] = useState("");
+  const [customerPhone, setCustomerPhone] = useState("");
+  const [selectedWilaya, setSelectedWilaya] = useState("");
+  const [customerAddress, setCustomerAddress] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
   
   const product = id ? getProductById(id) : undefined;
   
@@ -40,10 +47,72 @@ const ProductDetail = () => {
     return `${price.toLocaleString()} دج`;
   };
   
-  const handleOrderNow = () => {
-    if (!product.available) return;
-    addToCart(product);
-    navigate("/checkout");
+  const handleOrderSubmit = async () => {
+    if (!product.available || !customerName || !customerPhone || !selectedWilaya || !customerAddress) {
+      toast({
+        title: "خطأ",
+        description: "يرجى ملء جميع البيانات المطلوبة",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    setIsSubmitting(true);
+
+    try {
+      const shippingPrice = 600;
+      const totalPrice = product.price + shippingPrice;
+
+      // Insert order into Supabase
+      const { data: orderData, error: orderError } = await supabase
+        .from('orders')
+        .insert({
+          customer_name: customerName,
+          customer_phone: customerPhone,
+          customer_wilaya: selectedWilaya,
+          customer_address: customerAddress,
+          total_price: totalPrice,
+          status: 'pending'
+        })
+        .select()
+        .single();
+
+      if (orderError) throw orderError;
+
+      // Insert order item
+      const { error: itemError } = await supabase
+        .from('order_items')
+        .insert({
+          order_id: orderData.id,
+          product_id: product.id,
+          product_title: product.title,
+          product_price: product.price,
+          quantity: 1
+        });
+
+      if (itemError) throw itemError;
+
+      toast({
+        title: "تم تأكيد الطلب بنجاح",
+        description: "سيتم التواصل معك قريباً لتأكيد التوصيل",
+      });
+
+      // Reset form
+      setCustomerName("");
+      setCustomerPhone("");
+      setSelectedWilaya("");
+      setCustomerAddress("");
+
+    } catch (error) {
+      console.error('Error submitting order:', error);
+      toast({
+        title: "خطأ في إرسال الطلب",
+        description: "حدث خطأ أثناء إرسال طلبك. يرجى المحاولة مرة أخرى",
+        variant: "destructive",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
   
   const shippingPrice = 600;
@@ -59,7 +128,7 @@ const ProductDetail = () => {
                 <img 
                   src={product.imageUrl} 
                   alt={product.title} 
-                  className={`w-full h-[500px] object-cover ${!product.available ? 'opacity-60' : ''}`}
+                  className={`w-full h-[600px] object-cover ${!product.available ? 'opacity-60' : ''}`}
                 />
                 {!product.available && (
                   <div className="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center">
@@ -97,7 +166,7 @@ const ProductDetail = () => {
                   <div className="text-3xl font-bold text-orange-500 mb-2">
                     {product.available ? formatPrice(product.price) : product.availabilityMessage}
                   </div>
-                  <p className="text-pastel-charcoal">Pack De Musculation</p>
+                  <p className="text-pastel-charcoal">{product.category}</p>
                 </div>
 
                 <div className="space-y-4">
@@ -106,6 +175,8 @@ const ProductDetail = () => {
                     <div className="relative">
                       <Input 
                         id="name"
+                        value={customerName}
+                        onChange={(e) => setCustomerName(e.target.value)}
                         className="bg-pastel-light border-pastel-medium text-pastel-dark pl-10 focus:border-pastel-primary"
                         placeholder="أدخل اسمك الكامل"
                       />
@@ -120,6 +191,8 @@ const ProductDetail = () => {
                     <div className="relative">
                       <Input 
                         id="phone"
+                        value={customerPhone}
+                        onChange={(e) => setCustomerPhone(e.target.value)}
                         className="bg-pastel-light border-pastel-medium text-pastel-dark pl-10 focus:border-pastel-primary"
                         placeholder="أدخل رقم هاتفك"
                       />
@@ -129,7 +202,7 @@ const ProductDetail = () => {
 
                   <div>
                     <Label htmlFor="wilaya" className="text-pastel-dark mb-2 block font-medium">الولاية</Label>
-                    <Select>
+                    <Select value={selectedWilaya} onValueChange={setSelectedWilaya}>
                       <SelectTrigger className="bg-pastel-light border-pastel-medium text-pastel-dark focus:border-pastel-primary">
                         <SelectValue placeholder="اختر الولاية" />
                       </SelectTrigger>
@@ -144,22 +217,12 @@ const ProductDetail = () => {
                   </div>
 
                   <div>
-                    <Label htmlFor="commune" className="text-pastel-dark mb-2 block font-medium">البلدية</Label>
-                    <Select>
-                      <SelectTrigger className="bg-pastel-light border-pastel-medium text-pastel-dark focus:border-pastel-primary">
-                        <SelectValue placeholder="اختر البلدية" />
-                      </SelectTrigger>
-                      <SelectContent className="bg-white border-pastel-medium">
-                        <SelectItem value="placeholder" className="text-pastel-charcoal">اختر الولاية أولاً</SelectItem>
-                      </SelectContent>
-                    </Select>
-                  </div>
-
-                  <div>
                     <Label htmlFor="address" className="text-pastel-dark mb-2 block font-medium">العنوان</Label>
                     <div className="relative">
                       <Input 
                         id="address"
+                        value={customerAddress}
+                        onChange={(e) => setCustomerAddress(e.target.value)}
                         className="bg-pastel-light border-pastel-medium text-pastel-dark pl-10 focus:border-pastel-primary"
                         placeholder="أدخل عنوانك"
                       />
@@ -186,8 +249,8 @@ const ProductDetail = () => {
 
                   <Button
                     size="lg"
-                    onClick={handleOrderNow}
-                    disabled={!product.available}
+                    onClick={handleOrderSubmit}
+                    disabled={!product.available || isSubmitting || !customerName || !customerPhone || !selectedWilaya || !customerAddress}
                     className={`w-full flex items-center justify-center gap-2 font-bold px-6 py-4 text-lg shadow-lg transition-all duration-200 ${
                       product.available 
                         ? 'bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-600 hover:to-red-600 text-white hover:shadow-xl transform hover:scale-105' 
@@ -195,7 +258,7 @@ const ProductDetail = () => {
                     }`}
                   >
                     <ShoppingBag className="h-5 w-5" /> 
-                    {product.available ? 'تأكيد الطلب' : 'غير متوفر حالياً'}
+                    {isSubmitting ? 'جاري الإرسال...' : (product.available ? 'تأكيد الطلب' : 'غير متوفر حالياً')}
                   </Button>
                 </div>
               </div>

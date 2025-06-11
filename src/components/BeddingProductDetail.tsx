@@ -2,13 +2,14 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { useCart } from "@/contexts/CartContext";
 import { ShoppingBag, Phone, MapPin } from "lucide-react";
 import { Product, ProductColor } from "@/types";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { wilayas } from "@/data/wilayas";
+import { supabase } from "@/integrations/supabase/client";
+import { useToast } from "@/hooks/use-toast";
 
 interface BeddingProductDetailProps {
   product: Product;
@@ -16,26 +17,87 @@ interface BeddingProductDetailProps {
 
 const BeddingProductDetail: React.FC<BeddingProductDetailProps> = ({ product }) => {
   const navigate = useNavigate();
-  const { addToCart } = useCart();
+  const { toast } = useToast();
   const [selectedColor, setSelectedColor] = useState<ProductColor | null>(
     product.colors ? product.colors[0] : null
   );
+  
+  const [customerName, setCustomerName] = useState("");
+  const [customerPhone, setCustomerPhone] = useState("");
+  const [selectedWilaya, setSelectedWilaya] = useState("");
+  const [customerAddress, setCustomerAddress] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
   
   const formatPrice = (price: number) => {
     return `${price.toLocaleString()} دج`;
   };
   
-  const handleOrderNow = () => {
-    if (!product.available || !selectedColor) return;
-    
-    const productWithSelectedColor = {
-      ...product,
-      imageUrl: selectedColor.imageUrl,
-      title: `${product.title} - ${selectedColor.name}`
-    };
-    
-    addToCart(productWithSelectedColor);
-    navigate("/checkout");
+  const handleOrderSubmit = async () => {
+    if (!product.available || !selectedColor || !customerName || !customerPhone || !selectedWilaya || !customerAddress) {
+      toast({
+        title: "خطأ",
+        description: "يرجى ملء جميع البيانات المطلوبة واختيار اللون",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    setIsSubmitting(true);
+
+    try {
+      const shippingPrice = 600;
+      const totalPrice = product.price + shippingPrice;
+
+      // Insert order into Supabase
+      const { data: orderData, error: orderError } = await supabase
+        .from('orders')
+        .insert({
+          customer_name: customerName,
+          customer_phone: customerPhone,
+          customer_wilaya: selectedWilaya,
+          customer_address: customerAddress,
+          total_price: totalPrice,
+          status: 'pending'
+        })
+        .select()
+        .single();
+
+      if (orderError) throw orderError;
+
+      // Insert order item with selected color
+      const { error: itemError } = await supabase
+        .from('order_items')
+        .insert({
+          order_id: orderData.id,
+          product_id: product.id,
+          product_title: `${product.title} - ${selectedColor.name}`,
+          product_price: product.price,
+          quantity: 1
+        });
+
+      if (itemError) throw itemError;
+
+      toast({
+        title: "تم تأكيد الطلب بنجاح",
+        description: "سيتم التواصل معك قريباً لتأكيد التوصيل",
+      });
+
+      // Reset form
+      setCustomerName("");
+      setCustomerPhone("");
+      setSelectedWilaya("");
+      setCustomerAddress("");
+
+    } catch (error) {
+      console.error('Error submitting order:', error);
+      toast({
+        title: "خطأ في إرسال الطلب",
+        description: "حدث خطأ أثناء إرسال طلبك. يرجى المحاولة مرة أخرى",
+        variant: "destructive",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
   
   const shippingPrice = 600;
@@ -52,7 +114,7 @@ const BeddingProductDetail: React.FC<BeddingProductDetailProps> = ({ product }) 
                 <img 
                   src={selectedColor?.imageUrl || product.imageUrl} 
                   alt={`${product.title} - ${selectedColor?.name || ''}`} 
-                  className="w-full h-[500px] object-cover transition-all duration-300"
+                  className="w-full h-[600px] object-cover transition-all duration-300"
                 />
               </div>
             </div>
@@ -75,9 +137,9 @@ const BeddingProductDetail: React.FC<BeddingProductDetailProps> = ({ product }) 
                       <img
                         src={color.imageUrl}
                         alt={color.name}
-                        className="w-full h-20 object-cover rounded-md mb-2"
+                        className="w-full h-24 object-cover rounded-md mb-2"
                       />
-                      <p className={`text-xs font-medium text-center ${
+                      <p className={`text-sm font-medium text-center ${
                         selectedColor?.name === color.name ? 'text-orange-600' : 'text-pastel-dark'
                       }`}>
                         {color.name}
@@ -133,6 +195,8 @@ const BeddingProductDetail: React.FC<BeddingProductDetailProps> = ({ product }) 
                     <div className="relative">
                       <Input 
                         id="name"
+                        value={customerName}
+                        onChange={(e) => setCustomerName(e.target.value)}
                         className="bg-pastel-light border-pastel-medium text-pastel-dark pl-10 focus:border-pastel-primary"
                         placeholder="أدخل اسمك الكامل"
                       />
@@ -147,6 +211,8 @@ const BeddingProductDetail: React.FC<BeddingProductDetailProps> = ({ product }) 
                     <div className="relative">
                       <Input 
                         id="phone"
+                        value={customerPhone}
+                        onChange={(e) => setCustomerPhone(e.target.value)}
                         className="bg-pastel-light border-pastel-medium text-pastel-dark pl-10 focus:border-pastel-primary"
                         placeholder="أدخل رقم هاتفك"
                       />
@@ -156,7 +222,7 @@ const BeddingProductDetail: React.FC<BeddingProductDetailProps> = ({ product }) 
 
                   <div>
                     <Label htmlFor="wilaya" className="text-pastel-dark mb-2 block font-medium">الولاية</Label>
-                    <Select>
+                    <Select value={selectedWilaya} onValueChange={setSelectedWilaya}>
                       <SelectTrigger className="bg-pastel-light border-pastel-medium text-pastel-dark focus:border-pastel-primary">
                         <SelectValue placeholder="اختر الولاية" />
                       </SelectTrigger>
@@ -171,22 +237,12 @@ const BeddingProductDetail: React.FC<BeddingProductDetailProps> = ({ product }) 
                   </div>
 
                   <div>
-                    <Label htmlFor="commune" className="text-pastel-dark mb-2 block font-medium">البلدية</Label>
-                    <Select>
-                      <SelectTrigger className="bg-pastel-light border-pastel-medium text-pastel-dark focus:border-pastel-primary">
-                        <SelectValue placeholder="اختر البلدية" />
-                      </SelectTrigger>
-                      <SelectContent className="bg-white border-pastel-medium">
-                        <SelectItem value="placeholder" className="text-pastel-charcoal">اختر الولاية أولاً</SelectItem>
-                      </SelectContent>
-                    </Select>
-                  </div>
-
-                  <div>
                     <Label htmlFor="address" className="text-pastel-dark mb-2 block font-medium">العنوان</Label>
                     <div className="relative">
                       <Input 
                         id="address"
+                        value={customerAddress}
+                        onChange={(e) => setCustomerAddress(e.target.value)}
                         className="bg-pastel-light border-pastel-medium text-pastel-dark pl-10 focus:border-pastel-primary"
                         placeholder="أدخل عنوانك"
                       />
@@ -211,12 +267,12 @@ const BeddingProductDetail: React.FC<BeddingProductDetailProps> = ({ product }) 
 
                   <Button
                     size="lg"
-                    onClick={handleOrderNow}
-                    disabled={!product.available || !selectedColor}
+                    onClick={handleOrderSubmit}
+                    disabled={!product.available || !selectedColor || isSubmitting || !customerName || !customerPhone || !selectedWilaya || !customerAddress}
                     className="w-full flex items-center justify-center gap-2 font-bold px-6 py-4 text-lg shadow-lg transition-all duration-200 bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-600 hover:to-red-600 text-white hover:shadow-xl transform hover:scale-105"
                   >
                     <ShoppingBag className="h-5 w-5" /> 
-                    تأكيد الطلب
+                    {isSubmitting ? 'جاري الإرسال...' : 'تأكيد الطلب'}
                   </Button>
                 </div>
               </div>
