@@ -79,7 +79,7 @@ const ProductDetail = () => {
 
       if (orderError) throw orderError;
 
-      // Insert order item
+      // Insert order item with complete product information
       const { error: itemError } = await supabase
         .from('order_items')
         .insert({
@@ -91,6 +91,13 @@ const ProductDetail = () => {
         });
 
       if (itemError) throw itemError;
+
+      console.log('Order submitted successfully:', {
+        order_id: orderData.id,
+        product_id: product.id,
+        product_title: product.title,
+        customer_name: customerName
+      });
 
       toast({
         title: "تم تأكيد الطلب بنجاح",

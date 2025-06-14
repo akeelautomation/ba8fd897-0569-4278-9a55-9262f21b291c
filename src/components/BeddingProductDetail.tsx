@@ -64,7 +64,7 @@ const BeddingProductDetail: React.FC<BeddingProductDetailProps> = ({ product }) 
 
       if (orderError) throw orderError;
 
-      // Insert order item with selected color
+      // Insert order item with selected color information
       const { error: itemError } = await supabase
         .from('order_items')
         .insert({
@@ -76,6 +76,14 @@ const BeddingProductDetail: React.FC<BeddingProductDetailProps> = ({ product }) 
         });
 
       if (itemError) throw itemError;
+
+      console.log('Bedding order submitted successfully:', {
+        order_id: orderData.id,
+        product_id: product.id,
+        product_title: product.title,
+        selected_color: selectedColor.name,
+        customer_name: customerName
+      });
 
       toast({
         title: "تم تأكيد الطلب بنجاح",
