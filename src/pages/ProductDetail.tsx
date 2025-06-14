@@ -63,7 +63,7 @@ const ProductDetail = () => {
       const shippingPrice = 600;
       const totalPrice = product.price + shippingPrice;
 
-      // Insert order into Supabase
+      // Insert order into Supabase with product information
       const { data: orderData, error: orderError } = await supabase
         .from('orders')
         .insert({
@@ -72,6 +72,9 @@ const ProductDetail = () => {
           customer_wilaya: selectedWilaya,
           customer_address: customerAddress,
           total_price: totalPrice,
+          product_title: product.title,
+          product_price: product.price,
+          quantity: 1,
           status: 'pending'
         })
         .select()

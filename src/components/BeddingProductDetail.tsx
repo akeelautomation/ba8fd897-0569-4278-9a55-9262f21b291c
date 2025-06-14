@@ -47,8 +47,9 @@ const BeddingProductDetail: React.FC<BeddingProductDetailProps> = ({ product }) 
     try {
       const shippingPrice = 600;
       const totalPrice = product.price + shippingPrice;
+      const productTitleWithColor = `${product.title} - ${selectedColor.name}`;
 
-      // Insert order into Supabase
+      // Insert order into Supabase with product information including color
       const { data: orderData, error: orderError } = await supabase
         .from('orders')
         .insert({
@@ -57,6 +58,9 @@ const BeddingProductDetail: React.FC<BeddingProductDetailProps> = ({ product }) 
           customer_wilaya: selectedWilaya,
           customer_address: customerAddress,
           total_price: totalPrice,
+          product_title: productTitleWithColor,
+          product_price: product.price,
+          quantity: 1,
           status: 'pending'
         })
         .select()
@@ -70,7 +74,7 @@ const BeddingProductDetail: React.FC<BeddingProductDetailProps> = ({ product }) 
         .insert({
           order_id: orderData.id,
           product_id: product.id,
-          product_title: `${product.title} - ${selectedColor.name}`,
+          product_title: productTitleWithColor,
           product_price: product.price,
           quantity: 1,
           selected_color: selectedColor.name
@@ -81,7 +85,7 @@ const BeddingProductDetail: React.FC<BeddingProductDetailProps> = ({ product }) 
       console.log('Bedding order submitted successfully:', {
         order_id: orderData.id,
         product_id: product.id,
-        product_title: product.title,
+        product_title: productTitleWithColor,
         selected_color: selectedColor.name,
         customer_name: customerName
       });
