@@ -18,6 +18,7 @@ export type Database = {
           product_price: number
           product_title: string
           quantity: number
+          selected_color: string | null
         }
         Insert: {
           created_at?: string
@@ -27,6 +28,7 @@ export type Database = {
           product_price: number
           product_title: string
           quantity: number
+          selected_color?: string | null
         }
         Update: {
           created_at?: string
@@ -36,6 +38,7 @@ export type Database = {
           product_price?: number
           product_title?: string
           quantity?: number
+          selected_color?: string | null
         }
         Relationships: [
           {

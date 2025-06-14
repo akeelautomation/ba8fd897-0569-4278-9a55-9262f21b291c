@@ -87,7 +87,8 @@ const ProductDetail = () => {
           product_id: product.id,
           product_title: product.title,
           product_price: product.price,
-          quantity: 1
+          quantity: 1,
+          selected_color: '' // Empty string for non-bedding products
         });
 
       if (itemError) throw itemError;

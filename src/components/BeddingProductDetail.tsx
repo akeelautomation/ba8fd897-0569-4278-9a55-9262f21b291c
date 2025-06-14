@@ -72,7 +72,8 @@ const BeddingProductDetail: React.FC<BeddingProductDetailProps> = ({ product }) 
           product_id: product.id,
           product_title: `${product.title} - ${selectedColor.name}`,
           product_price: product.price,
-          quantity: 1
+          quantity: 1,
+          selected_color: selectedColor.name
         });
 
       if (itemError) throw itemError;
